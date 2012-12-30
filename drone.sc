@@ -37,7 +37,7 @@
           modFreq,
           freq;
         
-        modulatorModulator = SinOsc.ar(Rand(0.05, 0.2));
+        modulatorModulator = SinOsc.ar(Rand(0.02, 0.1));
         modFreq = baseModFreq + modulatorModulator.range(0, 0.33 * baseModFreq);
         
         modulator = LFTri.ar(modFreq);
@@ -119,7 +119,7 @@
           in: out,
           cutoffMinFreq: 100,
           cutoffMaxFreq: 125,
-          cutoffModFreq: 0.25
+          cutoffModFreq: 0.05
         ));
 
         /*out = GVerb.ar(out,
