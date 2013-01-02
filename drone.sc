@@ -23,87 +23,14 @@
   mBounds.top = 900;
   
   m.window.setTopLeftBounds(mBounds);
+
+  Instr.dir = "~/Projects/seas-of-subconscious/lib/";
+  Instr.loadAll();
+  Library.postTree;
   
   s.doWhenBooted({
     ({
-      Instr("FreakyDrone", {
-
-        arg baseFreq, baseModFreq;
-
-        var carrier,
-          modulator,
-          modulatorModulator,
-          out,
-          modFreq,
-          freq;
-        
-        modulatorModulator = SinOsc.ar(Rand(0.02, 0.1));
-        modFreq = baseModFreq + modulatorModulator.range(0, 0.33 * baseModFreq);
-        
-        modulator = LFTri.ar(modFreq);
-        freq = baseFreq + modulator.range(0, 1.33 * baseFreq);
-
-        carrier = SinOsc.ar(freq);
-
-        out = [carrier, carrier];
-      }, [
-        \freq,
-        \freq
-      ]);
-
-      Instr("FreakyDroneMultiple", {
-        arg baseFreq,
-          baseModFreq,
-          numHarms;
-
-        var out = Silence.ar(),
-          harmNum,
-          freq,
-          modFreq;
-
-        (numHarms.asInteger()).do({
-          arg i;
-          
-          harmNum = i + 2;
-          freq = baseFreq * harmNum + Rand(0.0, 10.0);
-          modFreq = baseModFreq * harmNum + Rand(0.0, 10.0);
-
-          out = out + Instr.ar("FreakyDrone", (
-            baseFreq: freq,
-            baseModFreq: modFreq
-          ));
-        
-        });
-
-        out;
-
-      }, [
-        \freq,
-        \freq,
-        [1, 100]
-      ]);
-
-      Instr("LPFer", {
-        arg in, cutoffFreq = 100;
-
-        var out;
-
-        out = LPF.ar(in, cutoffFreq);
-
-      });
-
-      Instr("LPFerModulated", {
-
-        arg in, cutoffMinFreq, cutoffMaxFreq, cutoffModFreq;
-
-        var out;
-
-        out = Instr.ar("LPFer", (
-          in: in,
-          cutoffFreq: SinOsc.ar(cutoffModFreq).range(cutoffMinFreq, cutoffMaxFreq)
-        ));
-
-      });
+      
 
 
       Instr("SeasOfSubconciousDrone", {
@@ -115,20 +42,18 @@
           numHarms: 7
         ));
 
-        out = Instr.ar("LPFerModulated", (
+        out = Instr.ar("cs.fx.LPFerModulated", (
           in: out,
           cutoffMinFreq: 100,
           cutoffMaxFreq: 125,
           cutoffModFreq: 0.05
         ));
 
-        /*out = GVerb.ar(out,
-          roomsize: 3,
-          revtime: 1.0,
-          damping: 0.6,
-          inputbw: 0.5,
-          spread: 15
-        );*/
+        /*out = Instr.ar("reverbs.reverberator3", (
+          audio: out,
+          revBalance: 0.6,
+          revTime: 8
+        ));*/
 
       });
 
