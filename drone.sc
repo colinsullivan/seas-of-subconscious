@@ -1,4 +1,6 @@
-(
+Quarks.gui;
+
+({
   var m, mBounds;
  
   s.quit;
@@ -11,7 +13,6 @@
   s.options.outDevice = "Soundflower (64ch)";
   s.options.sampleRate = 48000;
   s.options.blockSize = 8;
-  /*s.options.hardwareBufferSize = 128;*/
   s.boot();
   m = s.meter();
 
@@ -26,44 +27,67 @@
 
   Instr.dir = "~/Projects/seas-of-subconscious/lib/";
   Instr.loadAll();
-  Library.postTree;
+  /*Library.postTree;*/
   
-  s.doWhenBooted({
-    ({
-      
-
-
-      Instr("SeasOfSubconciousDrone", {
-        var out;
-        
-        out = Instr.ar("FreakyDroneMultiple", (
-          baseFreq: 110,
-          baseModFreq: 80,
-          numHarms: 7
-        ));
-
-        out = Instr.ar("cs.fx.LPFerModulated", (
-          in: out,
-          cutoffMinFreq: 100,
-          cutoffMaxFreq: 125,
-          cutoffModFreq: 0.05
-        ));
-
-        /*out = Instr.ar("reverbs.reverberator3", (
-          audio: out,
-          revBalance: 0.6,
-          revTime: 8
-        ));*/
-
-      });
-
-      Patch("SeasOfSubconciousDrone");
-      
-    }.play();)
+  /*s.doWhenBooted({
   
-  });
-
-)
+  });*/
 
 
+}.value();)
 
+({
+
+  var clock;
+
+  clock = TempoClock.new(140 / 60);
+
+  /*~test = Pbind(
+    \type, \instr,
+    \instr, "test",
+    \degree, Pseq([0, 2, \rest, 6, \rest]),
+    \octave, 3,
+    \sustain, 7,
+    \dur, 8,
+    \amp, 0.5
+  ).play(clock);*/
+
+  {
+    ~test = Patch("SeasOfSubconsciousDrone", (
+      freq: 110,
+      gate: KrNumberEditor.new(0, \gate.asSpec()),
+      attackTime: 2.0,
+      releaseTime: 2.0
+    )).play();
+
+    1.0.wait();
+
+    ~test.set(\gate, 1);
+
+    2.0.wait();
+
+    4.0.wait();
+
+    ~test.set(\gate, 0);
+
+    2.0.wait();
+
+    ~test.stop();
+
+    ~test = nil;
+  
+  }.fork();
+
+  {
+    ~test2 = Patch("cs.sfx.LoopBuf", (
+      
+    ))
+  }
+
+  
+}.value();)
+
+({
+
+
+}.value();)
