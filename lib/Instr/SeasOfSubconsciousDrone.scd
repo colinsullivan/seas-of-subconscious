@@ -43,6 +43,8 @@ Instr("SeasOfSubconsciousDrone", {
     cutoffModFreq: 0.05
   ));
 
+  out = [out, AllpassC.ar(out, 0.07, 0.07)];
+
   /*out = env * (amp * out);*/
 
   /*out = Instr.ar("reverbs.reverberator3", (

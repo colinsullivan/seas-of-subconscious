@@ -109,7 +109,7 @@ SoundsOfSubconsciousSeas : Object {
       droneWaterWaitTime,
       droneWaterWaitTimeMin = 20.0,
       droneWaterWaitTimeMax = 45.0,
-      droneWaterTransitionTime = 5.0,
+      droneWaterTransitionTime = 10.0,
       transitionStaggerTime = 0.5 * droneWaterTransitionTime;
 
     {
