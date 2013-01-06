@@ -68,9 +68,10 @@ SoundsOfSubconsciousSeas : Object {
       2.0.wait();
       this.start_drone();
       this.start_water();
+
+      this.start_soundscape();
     }.fork();
 
-  
   }
 
   setup_water {
@@ -85,18 +86,6 @@ SoundsOfSubconsciousSeas : Object {
   start_water {
     this.waterChannel.play(this.instrs[\water]);
     
-    {
-      this.waterChannel.levelTo(1.0, 2.0);
-
-      2.0.wait();
-
-      5.0.wait();
-
-      this.waterChannel.levelTo(0.0, 2.0); 
-
-      2.0.wait();
-
-    }.fork();
   }
 
   setup_drone {
@@ -109,20 +98,48 @@ SoundsOfSubconsciousSeas : Object {
   start_drone {
     this.droneChannel.play(this.instrs[\drone]);
     
-    {
-
-      1.0.wait();
-      
-      this.droneChannel.levelTo(1.0, 2.0);
-
-      4.0.wait();
-
-      this.droneChannel.levelTo(0.0, 2.0);
-
-      2.0.wait();
-
-    }.fork();
   
   }
-  
+
+  start_soundscape {
+    var waterLevelLow = 0.1,
+      waterLevelHigh = 0.75,
+      droneLevelLow = 0.1,
+      droneLevelHigh = 0.75,
+      droneWaterWaitTime,
+      droneWaterWaitTimeMin = 20.0,
+      droneWaterWaitTimeMax = 45.0,
+      droneWaterTransitionTime = 5.0,
+      transitionStaggerTime = 0.5 * droneWaterTransitionTime;
+
+    {
+
+      while ({ true }, {
+
+        // turn water on high
+        this.waterChannel.levelTo(waterLevelHigh, droneWaterTransitionTime);
+        // stagger
+        transitionStaggerTime.wait();
+        // turn drone on low
+        this.droneChannel.levelTo(droneLevelLow, droneWaterTransitionTime);
+        
+        // wait
+        droneWaterWaitTime = rrand(droneWaterWaitTimeMin, droneWaterWaitTimeMax);
+        droneWaterWaitTime.wait();
+
+        // turn drone on high
+        this.droneChannel.levelTo(droneLevelHigh, droneWaterTransitionTime);
+        // stagger
+        transitionStaggerTime.wait();
+        // turn water on low
+        this.waterChannel.levelTo(waterLevelLow, droneWaterTransitionTime);
+
+        // wait
+        droneWaterWaitTime = rrand(droneWaterWaitTimeMin, droneWaterWaitTimeMax);
+        droneWaterWaitTime.wait();
+      
+      });
+
+    }.fork();
+  }
 }
