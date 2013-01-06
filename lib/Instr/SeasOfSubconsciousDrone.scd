@@ -1,12 +1,12 @@
 Instr("SeasOfSubconsciousDrone", {
-  arg freq = 440,
-    gate = 1,
-    amp = 1.0,
-    attackTime = 2.0,
-    releaseTime = 2.0;
+  arg freq = 440;
+    /*gate = 1,*/
+    /*amp = 1.0,*/
+    /*attackTime = 2.0,
+    releaseTime = 2.0;*/
 
-  var out,
-    envShape,
+  var out;
+    /*envShape,
     env;
 
   envShape = Env.adsr(
@@ -14,7 +14,7 @@ Instr("SeasOfSubconsciousDrone", {
     releaseTime: releaseTime,
     sustainLevel: 1.0,
     curve: [4, -4, -4, -4]
-  );
+  );*/
   /*envShape.releaseNode = 2;*/
 
   /*envShape = Linen.kr(gate, 0.01, 0.7, 0.3, 2);*/
@@ -26,7 +26,7 @@ Instr("SeasOfSubconsciousDrone", {
     curve: \cub
   );*/
 
-  env = EnvGen.ar(envShape, gate, doneAction: 2);
+  /*env = EnvGen.ar(envShape, gate, doneAction: 2);*/
   /*env = Linen.kr(gate, 0.01, 0.7, 0.3, 2);*/
   
   out = Instr.ar("FreakyDroneMultiple", (
@@ -43,7 +43,7 @@ Instr("SeasOfSubconsciousDrone", {
     cutoffModFreq: 0.05
   ));
 
-  out = env * (amp * out);
+  /*out = env * (amp * out);*/
 
   /*out = Instr.ar("reverbs.reverberator3", (
     audio: out,
@@ -52,7 +52,7 @@ Instr("SeasOfSubconsciousDrone", {
   ));*/
 
 }, [
-  \freq,
-  \gate,
-  \amp
+  \freq
+  /*\gate,
+  \amp*/
 ]);

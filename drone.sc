@@ -1,8 +1,11 @@
 Quarks.gui;
 
 ({
-  var m, mBounds;
- 
+  var m,
+    mBounds,
+    projRoot = "/Users/colin/Projects/seas-of-subconscious",
+    projSfx = projRoot +/+ "raw-samples";
+
   s.quit;
   
   /*s.options.inDevice = "PreSonus FIREPOD (2112)";*/
@@ -25,69 +28,92 @@ Quarks.gui;
   
   m.window.setTopLeftBounds(mBounds);
 
-  Instr.dir = "~/Projects/seas-of-subconscious/lib/";
+  Instr.dir = projRoot +/+ "lib/";
   Instr.loadAll();
-  /*Library.postTree;*/
-  
-  /*s.doWhenBooted({
-  
-  });*/
+
+  s.doWhenBooted({
+    var doneLoading,
+      x,
+      soundsOfSubConsciousSeas;
+
+    soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
+    soundsOfSubConsciousSeas.init();
 
 
-}.value();)
+    /*doneLoading = {
+      arg splashingWaterBuf;
 
-({
 
-  var clock;
+      ~test = Patch("SeasOfSubconsciousDrone", (
+        freq: 110,
+        gate: KrNumberEditor.new(1, \gate.asSpec()),
+        attackTime: 2.0,
+        releaseTime: 2.0
+      ));
 
-  clock = TempoClock.new(140 / 60);
+      ~testChan = MixerChannel.new(\drone, Server.default, 2, 2, level: 0);
+      ~testChan.guiUpdateTime = 0.05;
 
-  /*~test = Pbind(
-    \type, \instr,
-    \instr, "test",
-    \degree, Pseq([0, 2, \rest, 6, \rest]),
-    \octave, 3,
-    \sustain, 7,
-    \dur, 8,
-    \amp, 0.5
-  ).play(clock);*/
+      ~testChan.play(~test);
 
-  {
-    ~test = Patch("SeasOfSubconsciousDrone", (
-      freq: 110,
-      gate: KrNumberEditor.new(0, \gate.asSpec()),
-      attackTime: 2.0,
-      releaseTime: 2.0
-    )).play();
+      {
 
-    1.0.wait();
+        1.0.wait();
+        
+        ~testChan.levelTo(1.0, 2.0);
 
-    ~test.set(\gate, 1);
+        4.0.wait();
 
-    2.0.wait();
+        ~testChan.levelTo(0.0, 2.0);
 
-    4.0.wait();
+        2.0.wait();
 
-    ~test.set(\gate, 0);
+        ~test.stop();
 
-    2.0.wait();
-
-    ~test.stop();
-
-    ~test = nil;
-  
-  }.fork();
-
-  {
-    ~test2 = Patch("cs.sfx.LoopBuf", (
+        ~test = nil;
       
-    ))
-  }
+      }.fork();
+
+      [>{
+        ~test2 = Patch("cs.sfx.LoopBuf", (
+          buf: splashingWaterBuf,
+          gate: KrNumberEditor.new(0, \gate.asSpec())
+        )).play();
+
+        1.0.wait();
+
+        ~test2.set(\gate, 1);
+
+        1.0.wait();
+
+        10.0.wait();
+
+        ~test2.set(\gate, 0);
+
+        2.0.wait();
+
+        ~test2.stop();
+
+        ~test2 = nil;
+
+      }.fork();
+    <]
+    };*/
+
+    Buffer.read(
+      Server.default,
+      projSfx +/+ "58411__sinatra314__shorewaves1004.wav",
+      action: {
+        arg buf;
+
+        soundsOfSubConsciousSeas.buf_loaded(\splashingWaterBuf, buf);
+
+      });
+  
+  });
 
   
-}.value();)
-
-({
-
 
 }.value();)
+
+

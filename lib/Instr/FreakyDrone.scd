@@ -17,7 +17,7 @@ Instr("FreakyDrone", {
 
   carrier = SinOsc.ar(freq);
 
-  out = [carrier, carrier];
+  out = carrier;
 }, [
   \freq,
   \freq
