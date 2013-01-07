@@ -3,41 +3,70 @@ SoundsOfSubconsciousSeas : Object {
   var <>masterChannel,
     <>droneChannel,
     <>waterChannel,
+    <>animalsChannel,
     <>channels,
     <>instrs,
-    <>bufs;
+    <>bufs,
+    <>animalBufs,
+    <>animalTransitionTime;
 
   init {
 
+    var create_channel_to_mixer;
+
     this.masterChannel = MixerChannel.new(\masterChannel, Server.default, 2, 2, 1.0);
-    this.droneChannel = MixerChannel.new(
-      \droneChannel,
-      Server.default,
-      2,
-      2,
-      0,
-      outbus: this.masterChannel
-    );
-    this.droneChannel.guiUpdateTime = 0.05;
+
+    create_channel_to_mixer = {
+      arg chanKey, initialLevel;
+      var chan = MixerChannel.new(
+        chanKey,
+        Server.default,
+        2,
+        2,
+        initialLevel,
+        outbus: this.masterChannel
+      );
+      chan.guiUpdateTime = 0.05;
+
+      chan;
+    };
+
+    this.droneChannel = create_channel_to_mixer.value(\droneChannel, 0);
     
-    this.waterChannel = MixerChannel.new(
-      \waterChannel,
-      Server.default,
-      2,
-      2,
-      0,
-      outbus: this.masterChannel
-    );
-    this.waterChannel.guiUpdateTime = 0.05;
+    this.waterChannel = create_channel_to_mixer.value(\waterChannel, 0);
+    
+    this.animalsChannel = create_channel_to_mixer.value(\animalsChannel, 1.0);
     
     this.bufs = (
-      splashingWaterBuf: 0
+      splashingWaterBuf: 0,
+      warblerBuf: 0,
+      gullsBuf: 0
     );
+
+    this.animalBufs = [\warblerBuf, \gullsBuf];
+    this.animalTransitionTime = 2.0;
 
     this.instrs = (
       drone: 0,
-      water: 0
+      water: 0,
+      animal: 0
     );
+  }
+
+  load_buf {
+    arg bufPath, bufKey;
+    var me = this;
+
+    Buffer.read(
+      Server.default,
+      bufPath,
+      action: {
+        arg buf;
+
+        me.buf_loaded(bufKey, buf);
+      };
+    );
+  
   }
 
   buf_loaded {
@@ -45,30 +74,23 @@ SoundsOfSubconsciousSeas : Object {
 
     this.bufs[bufKey] = buf;
 
-    this.bufs.do {
-      arg item;
-
-      if (item == 0, {
-        ^false;    
-      });
-
+    // if all bufs are not zero
+    if (this.bufs.any({ arg item; item == 0; }) == false, {
+      // finish loading
       this.bufs_all_loaded();
-
-    };
-
-    ^true;
+    });
   }
 
   bufs_all_loaded {
 
+    "bufs_all_loaded".postln;
+
     this.setup_drone();
     this.setup_water();
+    this.prepare_next_animal();
 
     {
       2.0.wait();
-      this.start_drone();
-      this.start_water();
-
       this.start_soundscape();
     }.fork();
 
@@ -97,22 +119,82 @@ SoundsOfSubconsciousSeas : Object {
 
   start_drone {
     this.droneChannel.play(this.instrs[\drone]);
-    
-  
+  }
+
+  prepare_next_animal {
+    this.instrs[\animal] = Patch("cs.sfx.PlayBuf", (
+      buf: this.bufs[this.animalBufs.choose()],
+      gate: KrNumberEditor.new(0, \gate.asSpec()),
+      attackTime: this.animalTransitionTime,
+      releaseTime: this.animalTransitionTime
+    ));
   }
 
   start_soundscape {
+
+    this.start_ambience();
+    this.start_animals();
+  
+  }
+
+  start_animals {
+    var onTime,
+      onTimeMin = 5.0,
+      onTimeMax = 12.0,
+      offTime,
+      offTimeMin = 10.0,
+      offTimeMax = 20.0;
+    {
+
+      while({ true }, {
+
+        "play".postln;
+        
+        this.animalsChannel.play(this.instrs[\animal]);
+
+        1.0.wait();
+
+        "gate on".postln;
+        this.instrs[\animal].set(\gate, 1);
+
+        this.animalTransitionTime.wait();
+        
+        onTime = rrand(onTimeMin, onTimeMax);
+        "onTime:".postln;
+        onTime.postln;
+        onTime.wait();
+
+        this.instrs[\animal].set(\gate, 0);
+
+        this.animalTransitionTime.wait();
+
+        this.prepare_next_animal();
+
+        offTime = rrand(offTimeMin, offTimeMax);
+        "offTime:".postln;
+        offTime.postln;
+        offTime.wait();
+      
+      });
+    
+    }.fork();
+  }
+
+  start_ambience {
     var waterLevelLow = 0.1,
       waterLevelHigh = 0.75,
       droneLevelLow = 0.1,
       droneLevelHigh = 0.75,
-      droneWaterWaitTime,
-      droneWaterWaitTimeMin = 20.0,
-      droneWaterWaitTimeMax = 45.0,
+      waitTime,
+      waitTimeMin = 20.0,
+      waitTimeMax = 45.0,
       droneWaterTransitionTime = 10.0,
       transitionStaggerTime = 0.5 * droneWaterTransitionTime;
 
     {
+
+      this.start_water();
+      this.start_drone();
 
       while ({ true }, {
 
@@ -124,8 +206,8 @@ SoundsOfSubconsciousSeas : Object {
         this.droneChannel.levelTo(droneLevelLow, droneWaterTransitionTime);
         
         // wait
-        droneWaterWaitTime = rrand(droneWaterWaitTimeMin, droneWaterWaitTimeMax);
-        droneWaterWaitTime.wait();
+        waitTime = rrand(waitTimeMin, waitTimeMax);
+        waitTime.wait();
 
         // turn drone on high
         this.droneChannel.levelTo(droneLevelHigh, droneWaterTransitionTime);
@@ -135,11 +217,12 @@ SoundsOfSubconsciousSeas : Object {
         this.waterChannel.levelTo(waterLevelLow, droneWaterTransitionTime);
 
         // wait
-        droneWaterWaitTime = rrand(droneWaterWaitTimeMin, droneWaterWaitTimeMax);
-        droneWaterWaitTime.wait();
+        waitTime = rrand(waitTimeMin, waitTimeMax);
+        waitTime.wait();
       
       });
 
     }.fork();
+  
   }
 }

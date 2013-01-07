@@ -32,27 +32,24 @@ Quarks.gui;
   Instr.loadAll();
 
   s.doWhenBooted({
-    var bufLoadedCallback,
-      soundsOfSubConsciousSeas;
+    var soundsOfSubConsciousSeas;
 
     soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
     soundsOfSubConsciousSeas.init();
 
-    bufLoadedCallback = {
-      arg bufKey;
-
-      {
-        arg buf;
-
-        soundsOfSubConsciousSeas.buf_loaded(bufKey, buf);
-      };
-    
-    };
-
-    Buffer.read(
-      Server.default,
+    soundsOfSubConsciousSeas.load_buf(
       projSfx +/+ "58411__sinatra314__shorewaves1004.wav",
-      action: bufLoadedCallback.value(\splashingWaterBuf)
+      \splashingWaterBuf
+    );
+
+    soundsOfSubConsciousSeas.load_buf(
+      projSfx +/+ "40563__genghis-attenborough__sedge-warbler-call.wav",
+      \warblerBuf
+    );
+
+    soundsOfSubConsciousSeas.load_buf(
+      projSfx +/+ "59492__dobroide__20080807-seagulls.wav",
+      \gullsBuf
     );
   
   });
