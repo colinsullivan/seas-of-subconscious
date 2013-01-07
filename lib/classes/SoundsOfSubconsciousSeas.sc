@@ -12,9 +12,16 @@ SoundsOfSubconsciousSeas : Object {
 
   init {
 
-    var create_channel_to_mixer;
+    var create_channel_to_mixer, test;
 
     this.masterChannel = MixerChannel.new(\masterChannel, Server.default, 2, 2, 1.0);
+
+    /*test = Patch("cs.fx.Test");
+
+    "test.synthDef.numChannels:".postln;
+    test.synthDef.numChannels.postln;
+
+    this.masterChannel.playfx(test);*/
 
     create_channel_to_mixer = {
       arg chanKey, initialLevel;
