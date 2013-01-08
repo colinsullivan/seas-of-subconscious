@@ -3,18 +3,12 @@ SoundsOfSubconsciousSeas : Object {
   var <>masterChannel,
     <>droneChannel,
     <>waterChannel,
-    <>animalsChannel,
     <>channels,
     <>instrs,
     <>bufs,
-    <>animalBufs,
-    <>animalTransitionTime,
-    <>creakingFloorboardMarkers,
-    <>nextCreakStartTime,
-    <>nextCreakEndTime,
-    <>creakAttackTime,
-    <>creakReleaseTime,
-    <>creakingChannel;
+    <>elements,
+    <>creaks,
+    <>animals;
 
   init {
 
@@ -48,9 +42,6 @@ SoundsOfSubconsciousSeas : Object {
     
     this.waterChannel = create_channel_to_mixer.value(\waterChannel, 0);
     
-    this.animalsChannel = create_channel_to_mixer.value(\animalsChannel, 1.0);
-    this.creakingChannel = create_channel_to_mixer.value(\creakingChannel, 0.6);
-    
     this.bufs = (
       splashingWaterBuf: 0,
       warblerBuf: 0,
@@ -58,34 +49,6 @@ SoundsOfSubconsciousSeas : Object {
       creakingFloorboardBuf: 0
     );
 
-    this.animalBufs = [\warblerBuf, \gullsBuf];
-    this.animalTransitionTime = 2.0;
-
-    this.creakingFloorboardMarkers = [
-      0.0,
-      3.5,
-      6.5,
-      9.7,
-      12.7,
-      15.5,
-      18.7,
-      22.1,
-      25.4,
-      29.2,
-      32.2,
-      35.5,
-      38.9,
-      41.9,
-      44.8,
-      48.3,
-      51.6,
-      54.6,
-      57.5
-    ];
-    this.nextCreakStartTime = nil;
-    this.nextCreakEndTime = nil;
-    this.creakAttackTime = 0.1;
-    this.creakReleaseTime = 0.1;
 
     this.instrs = (
       drone: 0,
@@ -93,6 +56,19 @@ SoundsOfSubconsciousSeas : Object {
       animal: 0,
       creakingFloorboard: 0
     );
+
+    this.animals = AnimalsSoundscapeElement.new();
+    this.animals.init((
+      soundscape: this,
+      key: \animals
+    ));
+
+    this.creaks = CreakSoundscapeElement.new();
+    this.creaks.init((
+      soundscape: this,
+      key: \creaks
+    ));
+
   }
 
   load_buf {
@@ -162,103 +138,14 @@ SoundsOfSubconsciousSeas : Object {
     this.droneChannel.play(this.instrs[\drone]);
   }
 
-  prepare_next_animal {
-    "prepare_next_animal".postln;
-    this.instrs[\animal] = Patch("cs.sfx.PlayBuf", (
-      buf: this.bufs[this.animalBufs.choose()],
-      gate: KrNumberEditor.new(0, \gate.asSpec()),
-      attackTime: this.animalTransitionTime,
-      releaseTime: this.animalTransitionTime
-    ));
 
-    this.animalsChannel.play(this.instrs[\animal]);
-  }
-
-  prepare_next_creak {
-
-    var nextCreakIndex;
-        
-    "prepare_next_creak".postln;
-
-    nextCreakIndex = (this.creakingFloorboardMarkers.size - 2).rand();
-    this.nextCreakStartTime = this.creakingFloorboardMarkers[nextCreakIndex];
-    this.nextCreakEndTime = this.creakingFloorboardMarkers[nextCreakIndex + 1];
-    
-    this.instrs[\creakingFloorboard] = Patch("cs.sfx.PlayBuf", (
-      buf: this.bufs[\creakingFloorboardBuf],
-      attackTime: this.creakAttackTime,
-      releaseTime: this.creakReleaseTime,
-      gate: KrNumberEditor.new(0, \gate.asSpec()),
-      startTime: this.nextCreakStartTime,
-      convertToStereo: 1
-    ));
-    
-    this.creakingChannel.play(this.instrs[\creakingFloorboard]);
-  }
-
-  start_creaks {
-    var creakTime,
-      waitTime,
-      waitTimeMin = 5.0,
-      waitTimeMax = 24.0;
-    {
-
-      while({ true }, {
-        this.prepare_next_creak();
-
-        waitTime = rrand(waitTimeMin, waitTimeMax);
-        waitTime.wait();
-
-        "play_creak".postln;
-        this.instrs[\creakingFloorboard].set(\gate, 1);
-
-        creakTime = this.nextCreakEndTime - this.nextCreakStartTime;
-        creakTime.wait();
-
-        this.instrs[\creakingFloorboard].set(\gate, 0);
-        this.creakReleaseTime.wait();
-      
-      });
-    
-    }.fork();
-  }
-  
   start_soundscape {
 
     this.start_ambience();
-    this.start_animals();
-    this.start_creaks();
+
+    this.animals.play();
+    this.creaks.play();
   
-  }
-
-  start_animals {
-    var onTime,
-      onTimeMin = 5.0,
-      onTimeMax = 12.0,
-      offTime,
-      offTimeMin = 10.0,
-      offTimeMax = 20.0;
-    {
-
-      while({ true }, {
-
-        this.prepare_next_animal();
-        offTime = rrand(offTimeMin, offTimeMax);
-        offTime.wait();
-
-        "play_animal".postln;
-        this.instrs[\animal].set(\gate, 1);
-        this.animalTransitionTime.wait();
-        
-        onTime = rrand(onTimeMin, onTimeMax);
-        onTime.wait();
-
-        this.instrs[\animal].set(\gate, 0);
-        this.animalTransitionTime.wait();
-      
-      });
-    
-    }.fork();
   }
 
   start_ambience {
