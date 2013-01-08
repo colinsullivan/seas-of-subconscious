@@ -184,7 +184,8 @@ SoundsOfSubconsciousSeas : Object {
       attackTime: this.creakAttackTime,
       releaseTime: this.creakReleaseTime,
       gate: KrNumberEditor.new(0, \gate.asSpec()),
-      startTime: this.nextCreakStartTime
+      startTime: this.nextCreakStartTime,
+      convertToStereo: 1
     ));
   }
 

@@ -59,7 +59,6 @@ Quarks.gui;
   
   });
 
-  
 
 }.value();)
 
