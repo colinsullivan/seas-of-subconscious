@@ -30,9 +30,10 @@ SoundscapeElement : Object {
     this.outChannel.guiUpdateTime = 0.05;
   }
 
-  prepare_for_play {
+  create_next_patch {
   
   }
+
 
   play {
     var onTime,
@@ -42,7 +43,9 @@ SoundscapeElement : Object {
 
       while({ true }, {
 
-        this.prepare_for_play();
+        this.instr = this.create_next_patch();
+        this.outChannel.play(this.instr);
+
         offTime = rrand(this.offTimeMin, this.offTimeMax);
         offTime.wait();
 

@@ -17,19 +17,16 @@ AnimalsSoundscapeElement : SoundscapeElement {
   
   }
 
-  prepare_for_play {
+  create_next_patch {
 
-    super.prepare_for_play();
+    super.create_next_patch();
 
-    this.instr = Patch("cs.sfx.PlayBuf", (
+    ^Patch("cs.sfx.PlayBuf", (
       buf: this.soundscape.bufs[this.animalBufs.choose()],
       gate: KrNumberEditor.new(0, \gate.asSpec()),
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime
     ));
-
-    this.outChannel.play(this.instr);
-  
   }
 
   play {

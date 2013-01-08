@@ -40,18 +40,20 @@ CreakSoundscapeElement : SoundscapeElement {
   
   }
 
-  prepare_for_play {
+  create_next_patch {
     var nextCreakIndex;
 
-    super.prepare_for_play();
+    super.create_next_patch();
         
     "prepare_next_creak".postln;
 
     nextCreakIndex = (this.bufferStartingMarkers.size - 2).rand();
     this.nextCreakStartTime = this.bufferStartingMarkers[nextCreakIndex];
     this.nextCreakEndTime = this.bufferStartingMarkers[nextCreakIndex + 1];
+    this.onTimeMax = this.nextCreakEndTime - this.nextCreakStartTime;
+    this.onTimeMin = this.onTimeMax;
     
-    this.instr = Patch("cs.sfx.PlayBuf", (
+    ^Patch("cs.sfx.PlayBuf", (
       buf: this.soundscape.bufs[\creakingFloorboardBuf],
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime,
@@ -59,12 +61,6 @@ CreakSoundscapeElement : SoundscapeElement {
       startTime: this.nextCreakStartTime,
       convertToStereo: 1
     ));
-
-    this.onTimeMax = this.nextCreakEndTime - this.nextCreakStartTime;
-    this.onTimeMin = this.onTimeMax;
-    
-    this.outChannel.play(this.instr);
-  
   }
 
 
