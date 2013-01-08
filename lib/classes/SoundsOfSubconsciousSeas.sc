@@ -190,7 +190,9 @@ SoundsOfSubconsciousSeas : Object {
 
   start_creaks {
     var creakTime,
-      waitTime;
+      waitTime,
+      waitTimeMin = 5.0,
+      waitTimeMax = 24.0;
     {
 
       while({ true }, {
@@ -209,7 +211,7 @@ SoundsOfSubconsciousSeas : Object {
 
         this.prepare_next_creak();
 
-        waitTime = 5.0;
+        waitTime = rrand(waitTimeMin, waitTimeMax);
         waitTime.wait();
       
       });
