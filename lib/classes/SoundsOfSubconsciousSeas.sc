@@ -8,7 +8,12 @@ SoundsOfSubconsciousSeas : Object {
     <>instrs,
     <>bufs,
     <>animalBufs,
-    <>animalTransitionTime;
+    <>animalTransitionTime,
+    <>creakingFloorboardMarkers,
+    <>nextCreakStartTime,
+    <>nextCreakEndTime,
+    <>creakAttackTime,
+    <>creakReleaseTime;
 
   init {
 
@@ -47,16 +52,44 @@ SoundsOfSubconsciousSeas : Object {
     this.bufs = (
       splashingWaterBuf: 0,
       warblerBuf: 0,
-      gullsBuf: 0
+      gullsBuf: 0,
+      creakingFloorboardBuf: 0
     );
 
     this.animalBufs = [\warblerBuf, \gullsBuf];
     this.animalTransitionTime = 2.0;
 
+    this.creakingFloorboardMarkers = [
+      0.0,
+      3.5,
+      6.5,
+      9.7,
+      12.7,
+      15.5,
+      18.7,
+      22.1,
+      25.4,
+      29.2,
+      32.2,
+      35.5,
+      38.9,
+      41.9,
+      44.8,
+      48.3,
+      51.6,
+      54.6,
+      57.5
+    ];
+    this.nextCreakStartTime = nil;
+    this.nextCreakEndTime = nil;
+    this.creakAttackTime = 0.1;
+    this.creakReleaseTime = 0.1;
+
     this.instrs = (
       drone: 0,
       water: 0,
-      animal: 0
+      animal: 0,
+      creakingFloorboard: 0
     );
   }
 
@@ -95,6 +128,7 @@ SoundsOfSubconsciousSeas : Object {
     this.setup_drone();
     this.setup_water();
     this.prepare_next_animal();
+    this.prepare_next_creak();
 
     {
       2.0.wait();
@@ -137,10 +171,57 @@ SoundsOfSubconsciousSeas : Object {
     ));
   }
 
+  prepare_next_creak {
+
+    var nextCreakIndex;
+
+    nextCreakIndex = (this.creakingFloorboardMarkers.size - 2).rand();
+    this.nextCreakStartTime = this.creakingFloorboardMarkers[nextCreakIndex];
+    this.nextCreakEndTime = this.creakingFloorboardMarkers[nextCreakIndex + 1];
+    
+    this.instrs[\creakingFloorboard] = Patch("cs.sfx.PlayBuf", (
+      buf: this.bufs[\creakingFloorboardBuf],
+      attackTime: this.creakAttackTime,
+      releaseTime: this.creakReleaseTime,
+      gate: KrNumberEditor.new(0, \gate.asSpec()),
+      startTime: this.nextCreakStartTime
+    ));
+  }
+
+  start_creaks {
+    var creakTime,
+      waitTime;
+    {
+
+      while({ true }, {
+
+        this.animalsChannel.play(this.instrs[\creakingFloorboard]);
+
+        1.0.wait();
+
+        this.instrs[\creakingFloorboard].set(\gate, 1);
+
+        creakTime = this.nextCreakEndTime - this.nextCreakStartTime;
+        creakTime.wait();
+
+        this.instrs[\creakingFloorboard].set(\gate, 0);
+        this.creakReleaseTime.wait();
+
+        this.prepare_next_creak();
+
+        waitTime = 5.0;
+        waitTime.wait();
+      
+      });
+    
+    }.fork();
+  }
+  
   start_soundscape {
 
     this.start_ambience();
     this.start_animals();
+    this.start_creaks();
   
   }
 
@@ -155,20 +236,20 @@ SoundsOfSubconsciousSeas : Object {
 
       while({ true }, {
 
-        "play".postln;
+        /*"play".postln;*/
         
         this.animalsChannel.play(this.instrs[\animal]);
 
         1.0.wait();
 
-        "gate on".postln;
+        /*"gate on".postln;*/
         this.instrs[\animal].set(\gate, 1);
 
         this.animalTransitionTime.wait();
         
         onTime = rrand(onTimeMin, onTimeMax);
-        "onTime:".postln;
-        onTime.postln;
+        /*"onTime:".postln;
+        onTime.postln;*/
         onTime.wait();
 
         this.instrs[\animal].set(\gate, 0);
@@ -178,8 +259,8 @@ SoundsOfSubconsciousSeas : Object {
         this.prepare_next_animal();
 
         offTime = rrand(offTimeMin, offTimeMax);
-        "offTime:".postln;
-        offTime.postln;
+        /*"offTime:".postln;
+        offTime.postln;*/
         offTime.wait();
       
       });

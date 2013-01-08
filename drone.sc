@@ -51,6 +51,11 @@ Quarks.gui;
       projSfx +/+ "59492__dobroide__20080807-seagulls.wav",
       \gullsBuf
     );
+
+    soundsOfSubConsciousSeas.load_buf(
+      projSfx +/+ "101381__benboncan__creaking-floorboard.wav",
+      \creakingFloorboardBuf
+    );
   
   });
 
