@@ -9,6 +9,14 @@ AnimalsSoundscapeElement : SoundscapeElement {
 
     super.init(args);
 
+    // send animals through reverb fairly wet
+    this.outChannel.newPreSend(
+      this.soundscape.reverbReturn,
+      -5.0.dbamp()
+    );
+
+    this.outChannel.level = -2.0.dbamp();
+
     this.animalBufs = [\warblerBuf, \gullsBuf, \loonsBuf];
 
     this.loonsBufSections = [

@@ -9,6 +9,14 @@ CreakSoundscapeElement : SoundscapeElement {
 
     super.init(args);
 
+    this.outChannel.newPreSend(
+      this.soundscape.reverbReturn,
+      -6.0.dbamp()
+    );
+
+    this.outChannel.level = -12.0.dbamp();
+    
+
     this.bufferStartingMarkers = [
       0.0,
       3.5,

@@ -1,6 +1,7 @@
 SoundsOfSubconsciousSeas : Object {
 
   var <>masterChannel,
+    <>reverbReturn,
     <>droneChannel,
     <>waterChannel,
     <>channels,
@@ -16,12 +17,17 @@ SoundsOfSubconsciousSeas : Object {
 
     this.masterChannel = MixerChannel.new(\masterChannel, Server.default, 2, 2, 1.0);
 
-    /*test = Patch("cs.fx.Test");
-
-    "test.synthDef.numChannels:".postln;
-    test.synthDef.numChannels.postln;
-
-    this.masterChannel.playfx(test);*/
+    this.reverbReturn = MixerChannel.new(
+      \reverbReturn,
+      Server.default,
+      2,
+      2,
+      1.0,
+      outbus: this.masterChannel
+    );
+    this.reverbReturn.playfx(FxPatch("cs.fx.Reverb", (
+      numChan: 2
+    )));
 
     create_channel_to_mixer = {
       arg chanKey, initialLevel;
@@ -39,6 +45,12 @@ SoundsOfSubconsciousSeas : Object {
     };
 
     this.droneChannel = create_channel_to_mixer.value(\droneChannel, 0);
+
+    // drone is mostly going to reverb
+    this.droneChannel.newPreSend(
+      this.reverbReturn,
+      -12.0.dbamp()
+    );
     
     this.waterChannel = create_channel_to_mixer.value(\waterChannel, 0);
     
@@ -123,7 +135,6 @@ SoundsOfSubconsciousSeas : Object {
 
   start_water {
     this.waterChannel.play(this.instrs[\water]);
-    
   }
 
   setup_drone {
@@ -148,10 +159,10 @@ SoundsOfSubconsciousSeas : Object {
   }
 
   start_ambience {
-    var waterLevelLow = 0.1,
-      waterLevelHigh = 0.75,
-      droneLevelLow = 0.1,
-      droneLevelHigh = 0.75,
+    var waterLevelLow = -25.0.dbamp(),
+      waterLevelHigh = -14.0.dbamp(),
+      droneLevelLow = -25.0.dbamp(),
+      droneLevelHigh = -10.0.dbamp(),
       waitTime,
       waitTimeMin = 20.0,
       waitTimeMax = 45.0,
