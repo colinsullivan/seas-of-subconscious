@@ -56,6 +56,11 @@ Quarks.gui;
       projSfx +/+ "101381__benboncan__creaking-floorboard.wav",
       \creakingFloorboardBuf
     );
+
+    soundsOfSubConsciousSeas.load_buf(
+      projSfx +/+ "163300__laurent__canadian-loons-in-family.wav",
+      \loonsBuf
+    );
   
   });
 

@@ -46,15 +46,14 @@ SoundsOfSubconsciousSeas : Object {
       splashingWaterBuf: 0,
       warblerBuf: 0,
       gullsBuf: 0,
+      loonsBuf: 0,
       creakingFloorboardBuf: 0
     );
 
 
     this.instrs = (
       drone: 0,
-      water: 0,
-      animal: 0,
-      creakingFloorboard: 0
+      water: 0
     );
 
     this.animals = AnimalsSoundscapeElement.new();
