@@ -60,6 +60,9 @@ CreakSoundscapeElement : SoundscapeElement {
     this.nextCreakEndTime = this.bufferStartingMarkers[nextCreakIndex + 1];
     this.onTimeMax = this.nextCreakEndTime - this.nextCreakStartTime;
     this.onTimeMin = this.onTimeMax;
+
+    "this.nextCreakStartTime:".postln;
+    this.nextCreakStartTime.postln;
     
     ^Patch("cs.sfx.PlayBuf", (
       buf: this.soundscape.bufs[\creakingFloorboardBuf],

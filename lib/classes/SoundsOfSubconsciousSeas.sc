@@ -9,7 +9,8 @@ SoundsOfSubconsciousSeas : Object {
     <>bufs,
     <>elements,
     <>creaks,
-    <>animals;
+    <>animals,
+    <>creepyBells;
 
   init {
 
@@ -59,7 +60,8 @@ SoundsOfSubconsciousSeas : Object {
       warblerBuf: 0,
       gullsBuf: 0,
       loonsBuf: 0,
-      creakingFloorboardBuf: 0
+      creakingFloorboardBuf: 0,
+      shipsBellBuf: 0
     );
 
 
@@ -78,6 +80,12 @@ SoundsOfSubconsciousSeas : Object {
     this.creaks.init((
       soundscape: this,
       key: \creaks
+    ));
+
+    this.creepyBells = CreepyBellElement.new();
+    this.creepyBells.init((
+      soundscape: this,
+      key: \creepyBells
     ));
 
   }
@@ -155,6 +163,7 @@ SoundsOfSubconsciousSeas : Object {
 
     this.animals.play();
     this.creaks.play();
+    this.creepyBells.play();
   
   }
 
