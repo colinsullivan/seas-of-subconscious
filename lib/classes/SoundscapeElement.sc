@@ -52,11 +52,13 @@ SoundscapeElement : Object {
         this.instr.set(\gate, 1);
         this.transitionTime.wait();
         
-        onTime = rrand(this.onTimeMin, this.onTimeMax);
+        onTime = rrand(this.onTimeMin, this.onTimeMax) - (2.0 * this.transitionTime);
         onTime.wait();
 
         this.instr.set(\gate, 0);
         this.transitionTime.wait();
+
+        this.instr.stop();
       
       });
     

@@ -21,19 +21,22 @@ CreepyBellElement : SoundscapeElement {
   }
 
   create_next_patch {
-    var buf, rate, dur, startTime;
+    var buf, playbackRate, dur, startTime;
 
     super.create_next_patch();
 
     "prepare next bell".postln();
 
     buf = this.soundscape.bufs[\shipsBellBuf];
-    rate = [2.0, -2.0, 1.0, -1.0, 0.25].choose();
+    playbackRate = [2.0, -2.0, 1.0, -1.0, 0.25].choose();
 
-    "rate:".postln;
-    rate.postln;
+    if (playbackRate < 0, {
+      startTime = buf.duration - 0.01;
+    }, {
+      startTime = 0;
+    });
 
-    dur = (buf.duration() * rate).abs();
+    dur = (buf.duration / playbackRate).abs();
 
     this.onTimeMin = dur;
     this.onTimeMax = dur;
@@ -43,7 +46,8 @@ CreepyBellElement : SoundscapeElement {
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime,
       gate: KrNumberEditor.new(0, \gate.asSpec()),
-      rate: rate
+      playbackRate: playbackRate,
+      startTime: startTime
     ));
   }
 }
