@@ -34,6 +34,11 @@ SoundscapeElement : Object {
   
   }
 
+  /**
+   *  Called from soundscape when all buffers have been loaded.
+   **/
+  prepare_to_play {
+  }
 
   play {
     var onTime,

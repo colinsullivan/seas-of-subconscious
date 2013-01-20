@@ -2,15 +2,9 @@ SoundsOfSubconsciousSeas : Object {
 
   var <>masterChannel,
     <>reverbReturn,
-    <>droneChannel,
-    <>waterChannel,
     <>channels,
-    <>instrs,
-    <>bufs,
     <>elements,
-    <>creaks,
-    <>animals,
-    <>creepyBells;
+    <>bufs;
 
   init {
 
@@ -30,63 +24,33 @@ SoundsOfSubconsciousSeas : Object {
       numChan: 2
     )));
 
-    create_channel_to_mixer = {
-      arg chanKey, initialLevel;
-      var chan = MixerChannel.new(
-        chanKey,
-        Server.default,
-        2,
-        2,
-        initialLevel,
-        outbus: this.masterChannel
-      );
-      chan.guiUpdateTime = 0.05;
-
-      chan;
-    };
-
-    this.droneChannel = create_channel_to_mixer.value(\droneChannel, 0);
-
-    // drone is mostly going to reverb
-    this.droneChannel.newPreSend(
-      this.reverbReturn,
-      -12.0.dbamp()
-    );
-    
-    this.waterChannel = create_channel_to_mixer.value(\waterChannel, 0);
-    
     this.bufs = (
       splashingWaterBuf: 0,
       warblerBuf: 0,
       gullsBuf: 0,
       loonsBuf: 0,
       creakingFloorboardBuf: 0,
-      shipsBellBuf: 0
+      shipsBellBuf: 0,
+      derbyshireRunningBuf: 0
     );
 
-
-    this.instrs = (
-      drone: 0,
-      water: 0
+    this.elements = (
+      ambience: AmbienceElement.new(),
+      animals: AnimalsSoundscapeElement.new(),
+      creaks: CreakSoundscapeElement.new(),
+      creepyBells: CreepyBellElement.new(),
+      /*dreams: DreamsSoundscapeElement.new(),*/
     );
 
-    this.animals = AnimalsSoundscapeElement.new();
-    this.animals.init((
-      soundscape: this,
-      key: \animals
-    ));
+    // initialize all elements
+    this.elements.keysValuesDo({
+      arg key, element;
 
-    this.creaks = CreakSoundscapeElement.new();
-    this.creaks.init((
-      soundscape: this,
-      key: \creaks
-    ));
-
-    this.creepyBells = CreepyBellElement.new();
-    this.creepyBells.init((
-      soundscape: this,
-      key: \creepyBells
-    ));
+      element.init((
+        soundscape: this,
+        key: key
+      ));
+    });
 
   }
 
@@ -107,14 +71,28 @@ SoundsOfSubconsciousSeas : Object {
   }
 
   buf_loaded {
-    arg bufKey, buf;
+    arg bufKey, buf, msg;
 
     this.bufs[bufKey] = buf;
+
+    ("loaded buf: " ++ bufKey).postln();
 
     // if all bufs are not zero
     if (this.bufs.any({ arg item; item == 0; }) == false, {
       // finish loading
       this.bufs_all_loaded();
+    }, {
+      msg = "bufs to load:";
+
+      this.bufs.keysValuesDo({
+        arg bufKey, bufValue;
+
+        if (bufValue == 0, {
+          msg = msg ++ bufKey ++ ", ";
+        });
+      });
+
+      msg.postln();
     });
   }
 
@@ -122,8 +100,11 @@ SoundsOfSubconsciousSeas : Object {
 
     "bufs_all_loaded".postln;
 
-    this.setup_drone();
-    this.setup_water();
+    this.elements.do({
+      arg element;
+
+      element.prepare_to_play();
+    });
 
     {
       2.0.wait();
@@ -132,84 +113,16 @@ SoundsOfSubconsciousSeas : Object {
 
   }
 
-  setup_water {
-    arg cb;
-
-    this.instrs[\water] = Patch("cs.sfx.LoopBuf", (
-      buf: this.bufs[\splashingWaterBuf],
-      gate: KrNumberEditor.new(1, \gate.asSpec())
-    ));
-  }
-
-  start_water {
-    this.waterChannel.play(this.instrs[\water]);
-  }
-
-  setup_drone {
-    this.instrs[\drone] = Patch("SeasOfSubconsciousDrone", (
-      freq: 110
-    ));
-
-  }
-
-  start_drone {
-    this.droneChannel.play(this.instrs[\drone]);
-  }
-
-
   start_soundscape {
 
-    this.start_ambience();
+    // play all elements
+    this.elements.do({
+      arg element;
 
-    this.animals.play();
-    this.creaks.play();
-    this.creepyBells.play();
-  
-  }
-
-  start_ambience {
-    var waterLevelLow = -25.0.dbamp(),
-      waterLevelHigh = -14.0.dbamp(),
-      droneLevelLow = -25.0.dbamp(),
-      droneLevelHigh = -10.0.dbamp(),
-      waitTime,
-      waitTimeMin = 20.0,
-      waitTimeMax = 45.0,
-      droneWaterTransitionTime = 10.0,
-      transitionStaggerTime = 0.5 * droneWaterTransitionTime;
-
-    {
-
-      this.start_water();
-      this.start_drone();
-
-      while ({ true }, {
-
-        // turn water on high
-        this.waterChannel.levelTo(waterLevelHigh, droneWaterTransitionTime);
-        // stagger
-        transitionStaggerTime.wait();
-        // turn drone on low
-        this.droneChannel.levelTo(droneLevelLow, droneWaterTransitionTime);
-        
-        // wait
-        waitTime = rrand(waitTimeMin, waitTimeMax);
-        waitTime.wait();
-
-        // turn drone on high
-        this.droneChannel.levelTo(droneLevelHigh, droneWaterTransitionTime);
-        // stagger
-        transitionStaggerTime.wait();
-        // turn water on low
-        this.waterChannel.levelTo(waterLevelLow, droneWaterTransitionTime);
-
-        // wait
-        waitTime = rrand(waitTimeMin, waitTimeMax);
-        waitTime.wait();
-      
+      if (element != 0, {
+        element.play();    
       });
-
-    }.fork();
+    });
   
   }
 }

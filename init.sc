@@ -54,7 +54,8 @@
       ["59492__dobroide__20080807-seagulls.wav", \gullsBuf],
       ["101381__benboncan__creaking-floorboard.wav", \creakingFloorboardBuf],
       ["163300__laurent__canadian-loons-in-family.wav", \loonsBuf],
-      ["32304__acclivity__shipsbell.wav", \shipsBellBuf]
+      ["32304__acclivity__shipsbell.wav", \shipsBellBuf],
+      ["Inventions For Radio - Dreams" +/+ "02 The Dreams - 1. Running-filtered.aif", \derbyshireRunningBuf]
     ];
 
     bufsToLoad.do({
@@ -69,4 +70,6 @@
   });
   
 }.value();)
+
+Quarks.gui;
 

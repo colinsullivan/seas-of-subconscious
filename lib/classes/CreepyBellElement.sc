@@ -7,7 +7,7 @@ CreepyBellElement : SoundscapeElement {
 
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -15.0.dbamp()
+      -10.0.dbamp()
     );
 
     this.outChannel.level = -10.0.dbamp();

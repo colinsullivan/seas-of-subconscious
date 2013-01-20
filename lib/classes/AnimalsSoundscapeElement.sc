@@ -15,7 +15,7 @@ AnimalsSoundscapeElement : SoundscapeElement {
       -5.0.dbamp()
     );
 
-    this.outChannel.level = -2.0.dbamp();
+    this.outChannel.level = -6.0.dbamp();
 
     this.animalBufs = [\warblerBuf, \gullsBuf, \loonsBuf];
 
@@ -61,6 +61,7 @@ AnimalsSoundscapeElement : SoundscapeElement {
       bufSegment = this.loonsBufSections.choose();
       this.onTimeMin = bufSegment[1] - bufSegment[0];
       this.onTimeMax = this.onTimeMin;
+      startTime = bufSegment[0];
     }, {
 
       this.onTimeMin = this.ambientOnTimeMin;
