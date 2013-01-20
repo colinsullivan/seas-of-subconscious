@@ -23,7 +23,11 @@ DreamsSoundscapeElement : SoundscapeElement {
         [65.5, 68.2],
         [68, 70],
         [87.2, 89.8],
-        [91.8, 104.1]
+        [91.8, 104.1],
+        [104.1, 106.3],
+        [113.2, 115.9],
+        [117.9, 121.2],
+        [121.7, 124.6]
       ]
     );
 
@@ -42,7 +46,8 @@ DreamsSoundscapeElement : SoundscapeElement {
 
     ("preparing dream: " ++ bufKey ++ " - " ++ bufSection).postln();
 
-    this.onTimeMin = this.onTimeMax = bufSection[1] - bufSection[0];
+    this.onTimeMin = bufSection[1] - bufSection[0];
+    this.onTimeMax = this.onTimeMin;
 
     ^Patch("DerbyshireFiltered", (
       buf: this.soundscape.bufs[bufKey],

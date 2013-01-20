@@ -67,6 +67,9 @@ AmbienceElement : SoundscapeElement {
       this.waterChannel.play(this.waterPatch);
       this.droneChannel.play(this.dronePatch);
 
+      this.waterChannel.level = 0.0;
+      this.droneChannel.level = 0.0;
+
       while ({ true }, {
 
         // turn water on high

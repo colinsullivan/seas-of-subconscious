@@ -39,7 +39,7 @@ SoundsOfSubconsciousSeas : Object {
       animals: AnimalsSoundscapeElement.new(),
       creaks: CreakSoundscapeElement.new(),
       creepyBells: CreepyBellElement.new(),
-      /*dreams: DreamsSoundscapeElement.new(),*/
+      dreams: DreamsSoundscapeElement.new()
     );
 
     // initialize all elements
