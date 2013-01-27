@@ -55,7 +55,11 @@
       ["101381__benboncan__creaking-floorboard.wav", \creakingFloorboardBuf],
       ["163300__laurent__canadian-loons-in-family.wav", \loonsBuf],
       ["32304__acclivity__shipsbell.wav", \shipsBellBuf],
-      ["Inventions For Radio - Dreams" +/+ "02 The Dreams - 1. Running-filtered.aif", \derbyshireRunningBuf]
+      ["Inventions For Radio - Dreams" +/+ "02 The Dreams - 1. Running-filtered.aif", \derbyshireRunningBuf],
+      ["melodic-bass" +/+ "avadhuta-01.aif", \avadhuta01Buf],
+      ["melodic-bass" +/+ "avadhuta-02.aif", \avadhuta02Buf],
+      ["melodic-bass" +/+ "descending-dissonant-chord.aif", \descendingDissonantBuf],
+      ["melodic-bass" +/+ "triads.aif", \triadsBuf]
     ];
 
     bufsToLoad.do({

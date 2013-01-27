@@ -15,7 +15,7 @@ AnimalsSoundscapeElement : SoundscapeElement {
       -5.0.dbamp()
     );
 
-    this.outChannel.level = -6.0.dbamp();
+    this.outChannel.level = -12.0.dbamp();
 
     this.animalBufs = [\warblerBuf, \gullsBuf, \loonsBuf];
 

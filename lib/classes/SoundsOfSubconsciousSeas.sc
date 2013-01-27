@@ -31,7 +31,11 @@ SoundsOfSubconsciousSeas : Object {
       loonsBuf: 0,
       creakingFloorboardBuf: 0,
       shipsBellBuf: 0,
-      derbyshireRunningBuf: 0
+      derbyshireRunningBuf: 0,
+      avadhuta01Buf: 0,
+      avadhuta02Buf: 0,
+      descendingDissonantBuf: 0,
+      triadsBuf: 0
     );
 
     this.elements = (
@@ -39,7 +43,8 @@ SoundsOfSubconsciousSeas : Object {
       animals: AnimalsSoundscapeElement.new(),
       creaks: CreakSoundscapeElement.new(),
       creepyBells: CreepyBellElement.new(),
-      dreams: DreamsSoundscapeElement.new()
+      dreams: DreamsSoundscapeElement.new(),
+      melodic: MelodicSoundscapeElement.new()
     );
 
     // initialize all elements
@@ -75,7 +80,7 @@ SoundsOfSubconsciousSeas : Object {
 
     this.bufs[bufKey] = buf;
 
-    ("loaded buf: " ++ bufKey).postln();
+    /*("loaded buf: " ++ bufKey).postln();*/
 
     // if all bufs are not zero
     if (this.bufs.any({ arg item; item == 0; }) == false, {
@@ -92,7 +97,7 @@ SoundsOfSubconsciousSeas : Object {
         });
       });
 
-      msg.postln();
+      /*msg.postln();*/
     });
   }
 
