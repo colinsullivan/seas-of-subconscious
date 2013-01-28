@@ -23,10 +23,10 @@ MelodicSoundscapeElement : SoundscapeElement {
 
     this.transitionTime = 0.1;
     
-    /*this.offTimeMin = 25.0;*/
-    /*this.offTimeMax = 60.0;*/
-    this.offTimeMin = 5.0;
-    this.offTimeMax = 10.0;
+    this.offTimeMin = 25.0;
+    this.offTimeMax = 60.0;
+    /*this.offTimeMin = 5.0;*/
+    /*this.offTimeMax = 10.0;*/
   }
 
   create_next_patch {

@@ -36,13 +36,6 @@ Instr("SeasOfSubconsciousDrone", {
     numHarms: 7
   ));
 
-  out = Instr.ar("cs.fx.LPFerModulated", (
-    in: out,
-    cutoffMinFreq: 100,
-    cutoffMaxFreq: 125,
-    cutoffModFreq: 0.05
-  ));
-
   out = [out, AllpassC.ar(out, 0.07, 0.07)];
 
   /*out = env * (amp * out);*/

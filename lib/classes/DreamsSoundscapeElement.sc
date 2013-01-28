@@ -1,12 +1,22 @@
 DreamsSoundscapeElement : SoundscapeElement {
 
   var <>bufNames,
-    <>bufSections;
+    <>bufSections,
+    <>filterPatch;
 
   init {
     arg args;
 
     super.init(args);
+
+    // filter voice
+    this.filterPatch = FxPatch("cs.fx.LPFerModulated", (
+      numChan: 2,
+      cutoffMinFreq: 400,
+      cutoffMaxFreq: 2000,
+      cutoffModFreq: 1.0
+    ));
+
 
     // send voice through reverb
     this.outChannel.newPreSend(
@@ -49,13 +59,19 @@ DreamsSoundscapeElement : SoundscapeElement {
     this.onTimeMin = bufSection[1] - bufSection[0];
     this.onTimeMax = this.onTimeMin;
 
-    ^Patch("DerbyshireFiltered", (
+    ^Patch("cs.sfx.PlayBuf", (
       buf: this.soundscape.bufs[bufKey],
       gate: KrNumberEditor.new(0, \gate.asSpec()),
       startTime: bufSection[0],
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime
     ));
+  }
+
+  play {
+    super.play();
+
+    this.outChannel.playfx(this.filterPatch);
   }
 
 }

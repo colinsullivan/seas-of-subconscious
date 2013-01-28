@@ -21,13 +21,6 @@ Instr("DerbyshireFiltered", {
     convertToStereo: convertToStereo
   ));
 
-  out = Instr.ar("cs.fx.LPFerModulated", (
-    in: out,
-    cutoffMinFreq: 400,
-    cutoffMaxFreq: 2000,
-    cutoffModFreq: 1.0
-  ));
-
 }, [
   \buffer,
   \gate,

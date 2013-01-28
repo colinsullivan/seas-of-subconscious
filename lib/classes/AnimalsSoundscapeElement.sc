@@ -77,12 +77,4 @@ AnimalsSoundscapeElement : SoundscapeElement {
       releaseTime: this.transitionTime
     ));
   }
-
-  play {
-
-    super.play();
-
-  
-  }
-
 }

@@ -30,7 +30,7 @@
   s.boot();
   m = s.meter();
 
-  // move level meter to bottom right of screen
+
   mBounds = m.window.bounds;
   /*mBounds.left = 1680;
   mBounds.top = 1000;*/
@@ -74,6 +74,4 @@
   });
   
 }.value();)
-
-Quarks.gui;
 

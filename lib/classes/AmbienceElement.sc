@@ -2,7 +2,8 @@ AmbienceElement : SoundscapeElement {
   var <>droneChannel,
     <>waterChannel,
     <>waterPatch,
-    <>dronePatch;
+    <>dronePatch,
+    <>droneFilterPatch;
 
   init {
     arg args;
@@ -28,6 +29,13 @@ AmbienceElement : SoundscapeElement {
       outbus: this.outChannel
     );
     this.droneChannel.guiUpdateTime = 0.05;
+
+    this.droneFilterPatch = FxPatch("cs.fx.LPFerModulated", (
+      numChan: 2,
+      cutoffMinFreq: 100,
+      cutoffMaxFreq: 125,
+      cutoffModFreq: 0.05
+    ));
     
     // drone is mostly going to reverb
     this.droneChannel.newPreSend(
@@ -48,12 +56,11 @@ AmbienceElement : SoundscapeElement {
     this.dronePatch = Patch("SeasOfSubconsciousDrone", (
       freq: 110
     ));
-  
   }
 
   play {
-    var waterLevelLow = -25.0.dbamp(),
-      waterLevelHigh = -14.0.dbamp(),
+    var waterLevelLow = -27.0.dbamp(),
+      waterLevelHigh = -17.0.dbamp(),
       droneLevelLow = -25.0.dbamp(),
       droneLevelHigh = -10.0.dbamp(),
       waitTime,
@@ -61,6 +68,8 @@ AmbienceElement : SoundscapeElement {
       waitTimeMax = 45.0,
       droneWaterTransitionTime = 10.0,
       transitionStaggerTime = 0.5 * droneWaterTransitionTime;
+
+    this.droneChannel.playfx(this.droneFilterPatch);
 
     {
 
