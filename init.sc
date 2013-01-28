@@ -59,7 +59,8 @@
       ["melodic-bass" +/+ "avadhuta-01.aif", \avadhuta01Buf],
       ["melodic-bass" +/+ "avadhuta-02.aif", \avadhuta02Buf],
       ["melodic-bass" +/+ "descending-dissonant-chord.aif", \descendingDissonantBuf],
-      ["melodic-bass" +/+ "triads.aif", \triadsBuf]
+      ["melodic-bass" +/+ "triads.aif", \triadsBuf],
+      ["88449__davidou__baleines.wav", \baleinesBuf]
     ];
 
     bufsToLoad.do({

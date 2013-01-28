@@ -35,7 +35,8 @@ SoundsOfSubconsciousSeas : Object {
       avadhuta01Buf: 0,
       avadhuta02Buf: 0,
       descendingDissonantBuf: 0,
-      triadsBuf: 0
+      triadsBuf: 0,
+      baleinesBuf: 0
     );
 
     this.elements = (

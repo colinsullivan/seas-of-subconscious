@@ -35,7 +35,7 @@ Instr("BassAutoGarble", {
     db: 12
   );
 
-  out = (0.8 * out) + (0.2 * Instr.ar("cs.fx.FFT.Shuffle", (
+  out = (0.7 * out) + (0.3 * Instr.ar("cs.fx.FFT.Shuffle", (
     in: out,
     scrambleAmt: filtModulator.range(0.0, 2.0),
     scrambleWidth: filtModulator.range(0.0, 1.0),

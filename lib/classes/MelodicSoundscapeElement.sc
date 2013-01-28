@@ -8,11 +8,11 @@ MelodicSoundscapeElement : SoundscapeElement {
     // reverb pretty wet
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -7.0.dbamp()
+      -12.0.dbamp()
     );
 
     // far less dry signal
-    this.outChannel.level = -13.0.dbamp();
+    this.outChannel.level = -17.0.dbamp();
 
     this.soundscapeBufKeys = [
       \avadhuta01Buf,

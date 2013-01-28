@@ -12,9 +12,9 @@ DreamsSoundscapeElement : SoundscapeElement {
     // filter voice
     this.filterPatch = FxPatch("cs.fx.LPFerModulated", (
       numChan: 2,
-      cutoffMinFreq: 400,
-      cutoffMaxFreq: 2000,
-      cutoffModFreq: 1.0
+      cutoffMinFreq: 200,
+      cutoffMaxFreq: 8000,
+      cutoffModFreq: 0.5
     ));
 
 
