@@ -12,8 +12,8 @@ CreepyBellElement : SoundscapeElement {
 
     this.outChannel.level = -20.0.dbamp();
 
-    this.offTimeMin = 10.0;
-    this.offTimeMax = 25.0;
+    this.offTimeMin = 12.0;
+    this.offTimeMax = 30.0;
     /*this.offTimeMin = 5.0;
     this.offTimeMax = 5.0;*/
 

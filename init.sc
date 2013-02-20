@@ -24,7 +24,7 @@
   /*s.options.inDevice = "Soundflower (64ch)";*/
 
   s.options.memSize = 262144; // 256 Mb
-  /*s.options.outDevice = "Soundflower (64ch)";*/
+  s.options.outDevice = "Soundflower (64ch)";
   s.options.sampleRate = 48000;
   s.options.blockSize = 8;
   s.boot();
@@ -60,7 +60,8 @@
       ["melodic-bass" +/+ "avadhuta-02.aif", \avadhuta02Buf],
       ["melodic-bass" +/+ "descending-dissonant-chord.aif", \descendingDissonantBuf],
       ["melodic-bass" +/+ "triads.aif", \triadsBuf],
-      ["88449__davidou__baleines.wav", \baleinesBuf]
+      ["88449__davidou__baleines.wav", \baleinesBuf],
+      ["99630__tec-studios__foghorn.wav", \fogHornBuf]
     ];
 
     bufsToLoad.do({
@@ -73,6 +74,6 @@
 
     });
   });
-  
+
 }.value();)
 

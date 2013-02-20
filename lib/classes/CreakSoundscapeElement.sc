@@ -41,8 +41,8 @@ CreakSoundscapeElement : SoundscapeElement {
     this.nextCreakStartTime = nil;
     this.nextCreakEndTime = nil;
     
-    this.offTimeMin = 10.0;
-    this.offTimeMax = 30.0;
+    this.offTimeMin = 15.0;
+    this.offTimeMax = 35.0;
     
     this.transitionTime = 0.1;
   

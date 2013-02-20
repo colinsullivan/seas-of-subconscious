@@ -10,11 +10,11 @@ DreamsSoundscapeElement : SoundscapeElement {
     super.init(args);
 
     // filter voice
-    this.filterPatch = FxPatch("cs.fx.LPFerModulated", (
+    this.filterPatch = FxPatch("cs.fx.HPFerModulated", (
       numChan: 2,
-      cutoffMinFreq: 200,
+      cutoffMinFreq: 800,
       cutoffMaxFreq: 8000,
-      cutoffModFreq: 0.5
+      cutoffModFreq: 0.3
     ));
 
 
@@ -24,7 +24,7 @@ DreamsSoundscapeElement : SoundscapeElement {
       -5.0.dbamp()
     );
 
-    this.outChannel.level = -5.0.dbamp();
+    this.outChannel.level = -8.0.dbamp();
 
     this.bufNames = [\derbyshireRunningBuf];
 

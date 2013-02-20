@@ -12,10 +12,10 @@ AnimalsSoundscapeElement : SoundscapeElement {
     // send animals through reverb fairly wet
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -5.0.dbamp()
+      -10.0.dbamp()
     );
 
-    this.outChannel.level = -12.0.dbamp();
+    this.outChannel.level = -20.0.dbamp();
 
     this.animalBufs = [\warblerBuf, \gullsBuf, \loonsBuf, \baleinesBuf];
 
@@ -34,8 +34,8 @@ AnimalsSoundscapeElement : SoundscapeElement {
     
     this.transitionTime = 2.0;
     
-    this.offTimeMin = 5.0;
-    this.offTimeMax = 19.0;
+    this.offTimeMin = 12.0;
+    this.offTimeMax = 30.0;
 
     this.ambientOnTimeMin = 5.0;
     this.ambientOnTimeMax = 12.0;

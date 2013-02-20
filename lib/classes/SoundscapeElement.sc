@@ -11,7 +11,8 @@ SoundscapeElement : Object {
     <>onTimeMax,
     <>onTimeMin,
     <>offTimeMin,
-    <>offTimeMax;
+    <>offTimeMax,
+    <>reverbLevel;
 
   init {
     arg args;
@@ -29,6 +30,12 @@ SoundscapeElement : Object {
     );
     this.outChannel.guiUpdateTime = 0.05;
   }
+
+  /*reverbLevel_ {*/
+    /*arg newReverbLevel;*/
+
+    /*this.reverbLevel = newReverbLevel;*/
+  /*}*/
 
   create_next_patch {
   

@@ -64,9 +64,9 @@ AmbienceElement : SoundscapeElement {
       droneLevelLow = -25.0.dbamp(),
       droneLevelHigh = -10.0.dbamp(),
       waitTime,
-      waitTimeMin = 20.0,
-      waitTimeMax = 45.0,
-      droneWaterTransitionTime = 10.0,
+      waitTimeMin = 40.0,
+      waitTimeMax = 95.0,
+      droneWaterTransitionTime = 12.0,
       transitionStaggerTime = 0.5 * droneWaterTransitionTime;
 
     this.droneChannel.playfx(this.droneFilterPatch);
