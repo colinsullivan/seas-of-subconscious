@@ -15,8 +15,8 @@ FogHornElement : SoundscapeElement {
 
     this.bufKeys = [\fogHornBuf, \fogHorn02Buf];
 
-    this.outLevelMin = -32.0.dbamp();
-    this.outLevelMax = -24.0.dbamp();
+    this.outLevelMin = -18.0.dbamp();
+    this.outLevelMax = -20.0.dbamp();
 
     this.offTimeMin = 30.0;
     this.offTimeMax = 80.0;

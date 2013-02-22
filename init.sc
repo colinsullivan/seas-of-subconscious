@@ -24,7 +24,7 @@
   /*s.options.inDevice = "Soundflower (64ch)";*/
 
   s.options.memSize = 262144; // 256 Mb
-  /*s.options.outDevice = "Soundflower (64ch)";*/
+  s.options.outDevice = "Soundflower (64ch)";
   s.options.sampleRate = 48000;
   s.options.blockSize = 8;
   s.boot();
@@ -63,7 +63,10 @@
       ["88449__davidou__baleines.wav", \baleinesBuf],
       ["173979-mega-forghorn-windowed.aif", \fogHornBuf],
       ["87785_long-scary-foghorn.aif", \fogHorn02Buf],
-      ["sea-shanty-placeholder.wav", \seaShanty]
+      ["shanty_01.aif", \seaShanty01],
+      ["long_shanty_01.aif", \seaShanty02],
+      ["shanty_03.aif", \seaShanty03],
+      ["long_shanty_02.aif", \seaShanty04]
     ];
 
     bufsToLoad.do({

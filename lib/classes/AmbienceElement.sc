@@ -33,14 +33,14 @@ AmbienceElement : SoundscapeElement {
     this.droneFilterPatch = FxPatch("cs.fx.LPFerModulated", (
       numChan: 2,
       cutoffMinFreq: 100,
-      cutoffMaxFreq: 145,
+      cutoffMaxFreq: 135,
       cutoffModFreq: 0.05
     ));
     
     // drone is mostly going to reverb
     this.droneChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -12.0.dbamp()
+      -13.0.dbamp()
     );
 
     this.outChannel.level = -3.0.dbamp();

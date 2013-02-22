@@ -51,7 +51,10 @@ SoundsOfSubconsciousSeas : Object {
       baleinesBuf: 0,
       fogHornBuf: 0,
       fogHorn02Buf: 0,
-      seaShanty: 0
+      seaShanty01: 0,
+      seaShanty02: 0,
+      seaShanty03: 0,
+      seaShanty04: 0
     );
 
     this.elements = (

@@ -24,9 +24,9 @@ ShantiesSoundscapeElement : SoundscapeElement {
       -8.0.dbamp()
     );
 
-    this.outChannel.level = -12.0.dbamp();
+    this.outChannel.level = -14.0.dbamp();
 
-    this.bufNames = [\seaShanty];
+    this.bufNames = [\seaShanty01, \seaShanty02, \seaShanty03, \seaShanty04];
 
     /*this.bufSections = (*/
       /*derbyshireRunningBuf: [*/
@@ -41,10 +41,13 @@ ShantiesSoundscapeElement : SoundscapeElement {
       /*]*/
     /*);*/
 
-    this.transitionTime = 0.5;
+    this.transitionTime = 2.0;
 
-    this.offTimeMin = 40.0;
-    this.offTimeMax = 90.0;
+    this.offTimeMin = 10.0;
+    this.offTimeMax = 50.0;
+    
+    this.onTimeMin = 10.0;
+    this.onTimeMax = 20.0;
   }
 
   create_next_patch {
@@ -52,23 +55,21 @@ ShantiesSoundscapeElement : SoundscapeElement {
       bufSection,
       buf;
 
+    super.create_next_patch();
+
     bufKey = this.bufNames.choose();
     buf = this.soundscape.bufs[bufKey];
     /*bufSection = this.bufSections[bufKey].choose();*/
 
     ("preparing shanty: " ++ bufKey /*++ " - " ++ bufSection*/).postln();
 
-    /*this.onTimeMin = bufSection[1] - bufSection[0];*/
-    /*this.onTimeMax = this.onTimeMin;*/
-
-    this.onTimeMin = buf.duration();
-    this.onTimeMax = this.onTimeMin;
-
-    ^Patch("cs.sfx.PlayBuf", (
+    ^Patch("cs.sfx.PlayBufWarped", (
       buf: buf,
       gate: KrNumberEditor.new(0, \gate.asSpec()),
-      playbackRate: rrand(0.5, 0.9),
-      /*startTime: bufSection[0],*/
+      playbackRate: rrand(0.8, 0.9),
+      warpAmp: 0.05,
+      warpFreq: 0.2,
+      startTime: (buf.duration() - this.onTimeMax).rand(),
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime
     ));

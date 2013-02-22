@@ -11,7 +11,7 @@ CreakSoundscapeElement : SoundscapeElement {
 
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -6.0.dbamp()
+      -7.0.dbamp()
     );
 
     this.outChannel.level = -10.0.dbamp();
