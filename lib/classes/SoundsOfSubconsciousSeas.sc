@@ -17,12 +17,12 @@ SoundsOfSubconsciousSeas : Object {
       2,
       2.4
     );
-    /*this.masterChannel.playfx(FxPatch("cs.fx.Notcher.notcher", (
-      notchFreqs: [440.0, 880.0 ],
-      notchrQs:   [0.1,   0.1   ],
-      notchdBs:   [-6.0,  -6.0  ],
+    this.masterChannel.playfx(FxPatch("cs.fx.Notcher.notcher", (
+      notchFreqs: [24000.0 ],
+      notchrQs:   [0.1   ],
+      notchdBs:   [-6.0  ],
       numChan: 2
-    )));*/
+    )));
 
     this.reverbReturn = MixerChannel.new(
       \reverbReturn,
@@ -49,7 +49,8 @@ SoundsOfSubconsciousSeas : Object {
       descendingDissonantBuf: 0,
       triadsBuf: 0,
       baleinesBuf: 0,
-      fogHornBuf: 0
+      fogHornBuf: 0,
+      seaShanty: 0
     );
 
     this.elements = (
@@ -59,7 +60,8 @@ SoundsOfSubconsciousSeas : Object {
       creepyBells: CreepyBellElement.new(),
       dreams: DreamsSoundscapeElement.new(),
       melodic: MelodicSoundscapeElement.new(),
-      fogHorn: FogHornElement.new()
+      fogHorn: FogHornElement.new(),
+      shanties: ShantiesSoundscapeElement.new()
     );
 
     // initialize all elements

@@ -32,7 +32,7 @@ Instr("SeasOfSubconsciousDrone", {
   out = Instr.ar("FreakyDroneMultiple", (
     /*baseFreq: 110,*/
     baseFreq: freq,
-    baseModFreq: 80,
+    baseModFreq: 65,
     numHarms: 7
   ));
 

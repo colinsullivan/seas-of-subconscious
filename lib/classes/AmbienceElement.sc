@@ -42,6 +42,8 @@ AmbienceElement : SoundscapeElement {
       this.soundscape.reverbReturn,
       -12.0.dbamp()
     );
+
+    this.outChannel.level = -3.0.dbamp();
     
   }
 
