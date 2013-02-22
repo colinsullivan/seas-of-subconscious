@@ -14,7 +14,7 @@ CreakSoundscapeElement : SoundscapeElement {
       -6.0.dbamp()
     );
 
-    this.outChannel.level = -12.0.dbamp();
+    this.outChannel.level = -10.0.dbamp();
     
 
     this.bufferStartingMarkers = [
@@ -41,8 +41,8 @@ CreakSoundscapeElement : SoundscapeElement {
     this.nextCreakStartTime = nil;
     this.nextCreakEndTime = nil;
     
-    this.offTimeMin = 15.0;
-    this.offTimeMax = 35.0;
+    this.offTimeMin = 10.0;
+    this.offTimeMax = 25.0;
     
     this.transitionTime = 0.1;
   
@@ -60,9 +60,6 @@ CreakSoundscapeElement : SoundscapeElement {
     this.nextCreakEndTime = this.bufferStartingMarkers[nextCreakIndex + 1];
     this.onTimeMax = this.nextCreakEndTime - this.nextCreakStartTime;
     this.onTimeMin = this.onTimeMax;
-
-    "this.nextCreakStartTime:".postln;
-    this.nextCreakStartTime.postln;
     
     ^Patch("cs.sfx.PlayBuf", (
       buf: this.soundscape.bufs[\creakingFloorboardBuf],

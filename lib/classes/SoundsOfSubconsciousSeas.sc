@@ -50,6 +50,7 @@ SoundsOfSubconsciousSeas : Object {
       triadsBuf: 0,
       baleinesBuf: 0,
       fogHornBuf: 0,
+      fogHorn02Buf: 0,
       seaShanty: 0
     );
 

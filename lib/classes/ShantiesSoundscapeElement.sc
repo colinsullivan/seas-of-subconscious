@@ -43,8 +43,8 @@ ShantiesSoundscapeElement : SoundscapeElement {
 
     this.transitionTime = 0.5;
 
-    this.offTimeMin = 10.0;
-    this.offTimeMax = 20.0;
+    this.offTimeMin = 40.0;
+    this.offTimeMax = 90.0;
   }
 
   create_next_patch {

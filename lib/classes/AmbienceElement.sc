@@ -33,7 +33,7 @@ AmbienceElement : SoundscapeElement {
     this.droneFilterPatch = FxPatch("cs.fx.LPFerModulated", (
       numChan: 2,
       cutoffMinFreq: 100,
-      cutoffMaxFreq: 125,
+      cutoffMaxFreq: 145,
       cutoffModFreq: 0.05
     ));
     

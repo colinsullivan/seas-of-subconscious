@@ -1,6 +1,7 @@
 FogHornElement : SoundscapeElement {
   var <>outLevelMin,
-    <>outLevelMax;
+    <>outLevelMax,
+    <>bufKeys;
   
   init {
     arg args;
@@ -12,11 +13,13 @@ FogHornElement : SoundscapeElement {
       -10.0.dbamp()
     );
 
-    this.outLevelMin = -38.0.dbamp();
+    this.bufKeys = [\fogHornBuf, \fogHorn02Buf];
+
+    this.outLevelMin = -32.0.dbamp();
     this.outLevelMax = -24.0.dbamp();
 
-    this.offTimeMin = 50.0;
-    this.offTimeMax = 120.0;
+    this.offTimeMin = 30.0;
+    this.offTimeMax = 80.0;
     /*this.offTimeMin = 5.0;*/
     /*this.offTimeMax = 5.0;*/
 
@@ -24,13 +27,16 @@ FogHornElement : SoundscapeElement {
   }
 
   create_next_patch {
-    var buf;
+    var bufKey,
+      bufSection,
+      buf;
 
     super.create_next_patch();
+    
+    bufKey = this.bufKeys.choose();
+    buf = this.soundscape.bufs[bufKey];
 
-    "preparing fog horn".postln();
-
-    buf = this.soundscape.bufs[\fogHornBuf];
+    ("preparing fog horn" ++ bufKey).postln();
 
     this.onTimeMin = buf.duration;
     this.onTimeMax = buf.duration;

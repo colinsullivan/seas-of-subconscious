@@ -61,7 +61,8 @@
       ["melodic-bass" +/+ "descending-dissonant-chord.aif", \descendingDissonantBuf],
       ["melodic-bass" +/+ "triads.aif", \triadsBuf],
       ["88449__davidou__baleines.wav", \baleinesBuf],
-      ["99630__tec-studios__foghorn.wav", \fogHornBuf],
+      ["173979-mega-forghorn-windowed.aif", \fogHornBuf],
+      ["87785_long-scary-foghorn.aif", \fogHorn02Buf],
       ["sea-shanty-placeholder.wav", \seaShanty]
     ];
 
