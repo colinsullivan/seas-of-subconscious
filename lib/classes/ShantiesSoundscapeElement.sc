@@ -24,7 +24,7 @@ ShantiesSoundscapeElement : SoundscapeElement {
       -8.0.dbamp()
     );
 
-    this.outChannel.level = -14.0.dbamp();
+    this.outChannel.level = -12.0.dbamp();
 
     this.bufNames = [\seaShanty01, \seaShanty02, \seaShanty03, \seaShanty04];
 
