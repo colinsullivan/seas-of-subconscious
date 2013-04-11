@@ -33,10 +33,10 @@ ShantiesSoundscapeElement : SoundscapeElement {
     // send voice through reverb
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -8.0.dbamp()
+      -16.0.dbamp()
     );
 
-    this.outChannel.level = -12.0.dbamp();
+    this.outChannel.level = -22.0.dbamp();
 
     this.bufNames = [\seaShanty01, \seaShanty02, \seaShanty03, \seaShanty04];
 
