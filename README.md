@@ -6,9 +6,13 @@ A soundscape developed for the All Worlds Fair event that took place in San Fran
 
 ## Dependencies
 
-It depends on my more general supercollider library which is where I put anything not project-specific.  It can be installed with your other quarks.
+### cs-supercollider-lib
 
 [github.com/colinsullivan/cs-supercollider-lib](https://github.com/colinsullivan/cs-supercollider-lib)
+
+My general supercollider library which is where I put anything not project-specific.  It can be installed with your other quarks.
+
+### Audio Samples
 
 The audio files used in the soundscape are not being tracked by github.  To download the samples:
 
@@ -16,6 +20,18 @@ The audio files used in the soundscape are not being tracked by github.  To down
 cd seas-of-subconscious/seas-of-subconscious-samples/
 ./get_samples.sh
 ```
+
+### Quarks
+
+[dewdrop lib](http://www.dewdrop-world.net/sc3/index.php)
+
+Lots of stuff from here, including heavy use of `MixerChannel`.
+
+cruciallib
+
+`Instr` and `Patch` classes used heavily.
+
+Probably others.
 
 ## Running
 
