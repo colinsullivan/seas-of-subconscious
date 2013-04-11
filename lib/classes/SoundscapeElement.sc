@@ -52,12 +52,11 @@ SoundscapeElement : Object {
     this.outChannel.guiUpdateTime = 0.05;
   }
 
-  /*reverbLevel_ {*/
-    /*arg newReverbLevel;*/
-
-    /*this.reverbLevel = newReverbLevel;*/
-  /*}*/
-
+  /**
+   *  Called from `play` when we're preparing to play this element.  This 
+   *  should be overridden in subclasses and return a `Patch` instance which
+   *  will be played at the appropriate time.
+   **/
   create_next_patch {
   
   }
@@ -68,29 +67,45 @@ SoundscapeElement : Object {
   prepare_to_play {
   }
 
+  /**
+   *  Called from soundscape when it starts up.
+   **/
   play {
     var onTime,
       offTime;
-    
+   
+    /**
+     *  Main run loop.
+     **/
     {
 
       while({ true }, {
 
+        // prepare instrument
         this.instr = this.create_next_patch();
         this.outChannel.play(this.instr);
 
+        // wait for the desired off time
         offTime = rrand(this.offTimeMin, this.offTimeMax);
         offTime.wait();
 
+        // turn sound on
         this.instr.set(\gate, 1);
+
+        // wait for transition time
         this.transitionTime.wait();
         
+        // wait for on time
         onTime = rrand(this.onTimeMin, this.onTimeMax) - (2.0 * this.transitionTime);
         onTime.wait();
 
+        // turn sound off
         this.instr.set(\gate, 0);
+
+        // off envelope time is same as on time
         this.transitionTime.wait();
 
+        // stop patch (just for safety)
         this.instr.stop();
       
       });
