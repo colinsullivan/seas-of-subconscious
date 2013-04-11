@@ -33,7 +33,7 @@ ShantiesSoundscapeElement : SoundscapeElement {
     // send voice through reverb
     this.outChannel.newPreSend(
       this.soundscape.reverbReturn,
-      -16.0.dbamp()
+      -14.0.dbamp()
     );
 
     this.outChannel.level = -22.0.dbamp();
