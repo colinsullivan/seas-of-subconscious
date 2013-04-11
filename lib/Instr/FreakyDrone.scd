@@ -1,3 +1,14 @@
+/**
+ *  @file       FreakyDrone.scd
+ *
+ *              A single instance of a pretty freaky drone.  Mostly due to
+ *              slight detune effect.
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
 Instr("FreakyDrone", {
 
   arg baseFreq, baseModFreq;

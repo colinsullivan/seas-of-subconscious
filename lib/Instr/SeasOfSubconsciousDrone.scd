@@ -1,3 +1,15 @@
+/**
+ *  @file       SeasOfSubconsciousDrone.scd
+ *
+ *              Attempted a few different things here.  Ended up just delaying
+ *              right channel ever so slightly for unsettling phase effect.
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
 Instr("SeasOfSubconsciousDrone", {
   arg freq = 440;
     /*gate = 1,*/

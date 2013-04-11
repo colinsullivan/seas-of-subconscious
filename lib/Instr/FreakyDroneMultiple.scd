@@ -1,3 +1,14 @@
+/**
+ *  @file       FreakyDroneMultiple.scd
+ *
+ *              Multiple instances of `FreakyDrone` sound more freaky when they
+ *              are all slightly detuned from one another.
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
 Instr("FreakyDroneMultiple", {
   arg baseFreq,
     baseModFreq,

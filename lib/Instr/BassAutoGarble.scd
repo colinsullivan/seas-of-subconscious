@@ -1,3 +1,15 @@
+/**
+ *  @file       BassAutoGarble.scd
+ *
+ *              Attempt at FFT shuffling based on input amplitude envelope.
+ *              Works OK but not great.
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
 Instr("BassAutoGarble", {
   arg buf,
     gate,

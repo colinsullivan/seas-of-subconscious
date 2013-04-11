@@ -1,3 +1,16 @@
+/**
+ *  @file       SoundscapeElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Base class for all soundscape elements that are triggered with
+ *  a particular frequency.
+ **/
 SoundscapeElement : Object {
   var <>outChannel,
     /**
@@ -5,13 +18,21 @@ SoundscapeElement : Object {
      *  classes.
      **/
     <>key,
+    // reference to Soundscape instance
     <>soundscape,
+    // instrument we are triggering
     <>instr,
+    // transition on and off envelope duration
     <>transitionTime,
+    // maximum time this sound will be played for
     <>onTimeMax,
+    // minimum time this sound will be played for
     <>onTimeMin,
+    // minimum duration between previous off and next on
     <>offTimeMin,
+    // maximum duration between previous off and next on
     <>offTimeMax,
+    // amount of reverb :)
     <>reverbLevel;
 
   init {

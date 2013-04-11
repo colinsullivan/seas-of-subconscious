@@ -14,7 +14,7 @@
   var m,
     mBounds,
     projRoot = "/Users/colin/Projects/seas-of-subconscious",
-    projSfx = projRoot +/+ "raw-samples";
+    projSfx = projRoot +/+ "seas-of-subconscious-samples/";
 
   s.quit;
   
@@ -24,7 +24,7 @@
   /*s.options.inDevice = "Soundflower (64ch)";*/
 
   s.options.memSize = 262144; // 256 Mb
-  s.options.outDevice = "Soundflower (64ch)";
+  //s.options.outDevice = "Soundflower (64ch)";
   s.options.sampleRate = 48000;
   s.options.blockSize = 8;
   s.boot();

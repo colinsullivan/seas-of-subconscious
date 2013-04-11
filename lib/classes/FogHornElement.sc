@@ -1,3 +1,15 @@
+/**
+ *  @file       FogHornElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Foghorn action.
+ **/
 FogHornElement : SoundscapeElement {
   var <>outLevelMin,
     <>outLevelMax,

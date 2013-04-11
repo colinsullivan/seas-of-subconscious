@@ -1,3 +1,17 @@
+/**
+ *  @file       DreamsSoundscapeElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Plays samples from Delia Derbyshire's dream interviews where
+ *  people are talking about their dreams.  Puts them through a HPF with a
+ *  modulating cutoff frequency for weirdness.
+ **/
 DreamsSoundscapeElement : SoundscapeElement {
 
   var <>bufNames,

@@ -1,3 +1,15 @@
+/**
+ *  @file       MelodicSoundscapeElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Melodic bass samples recorded from my bass guitar.
+ **/
 MelodicSoundscapeElement : SoundscapeElement {
   var <>soundscapeBufKeys;
 

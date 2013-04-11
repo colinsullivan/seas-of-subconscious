@@ -1,3 +1,15 @@
+/**
+ *  @file       CreakSoundscapeElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Plays some creepy creaky sounds.
+ **/
 CreakSoundscapeElement : SoundscapeElement {
 
   var <>bufferStartingMarkers,

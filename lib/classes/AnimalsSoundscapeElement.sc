@@ -1,3 +1,15 @@
+/**
+ *  @file       AnimalsSoundscapeElement.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Plays animal sounds in the distance.
+ **/
 AnimalsSoundscapeElement : SoundscapeElement {
   var <>animalBufs,
     <>ambientOnTimeMin,

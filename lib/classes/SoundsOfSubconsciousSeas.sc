@@ -1,3 +1,16 @@
+/**
+ *  @file       SoundsOfSubconsciousSeas.sc
+ *
+ *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
+ *
+ *              Copyright (c) 2013 Colin Sullivan
+ *              Licensed under the MIT license.
+ **/
+
+/**
+ *  @class  Entry-point into soundscape.  Creates all elements and plays them.
+ *  TODO: generalize this into a `Soundscape` class.
+ **/
 SoundsOfSubconsciousSeas : Object {
 
   var <>masterChannel,
