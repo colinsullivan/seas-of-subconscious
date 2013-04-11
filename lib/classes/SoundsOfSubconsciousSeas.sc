@@ -28,7 +28,8 @@ SoundsOfSubconsciousSeas : Object {
       Server.default,
       2,
       2,
-      2.4
+      2.4,
+      outbus: 8
     );
     this.masterChannel.playfx(FxPatch("cs.fx.Notcher.notcher", (
       notchFreqs: [24000.0 ],

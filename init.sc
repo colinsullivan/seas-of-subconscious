@@ -26,6 +26,7 @@
   s.options.memSize = 262144; // 256 Mb
   //s.options.outDevice = "Soundflower (64ch)";
   s.options.sampleRate = 48000;
+  s.options.numOutputBusChannels = 16;
   s.options.blockSize = 8;
   s.boot();
   m = s.meter();
@@ -46,6 +47,7 @@
     var soundsOfSubConsciousSeas, bufsToLoad;
 
     soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
+
     soundsOfSubConsciousSeas.init();
 
     bufsToLoad = [
@@ -68,7 +70,7 @@
       ["shanty_03.aif", \seaShanty03],
       ["long_shanty_02.aif", \seaShanty04]
     ];
-
+    
     bufsToLoad.do({
       arg bufData;
 
