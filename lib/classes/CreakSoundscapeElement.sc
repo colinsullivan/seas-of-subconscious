@@ -74,7 +74,7 @@ CreakSoundscapeElement : SoundscapeElement {
     this.onTimeMin = this.onTimeMax;
     
     ^Patch("cs.sfx.PlayBuf", (
-      buf: this.soundscape.bufs[\creakingFloorboardBuf],
+      buf: this.bufManager.bufs[\creakingFloorboardBuf],
       attackTime: this.transitionTime,
       releaseTime: this.transitionTime,
       gate: KrNumberEditor.new(0, \gate.asSpec()),

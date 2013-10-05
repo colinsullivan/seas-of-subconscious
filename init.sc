@@ -18,14 +18,9 @@
 
   s.quit;
   
-  /*s.options.inDevice = "PreSonus FIREPOD (2112)";*/
-  /*s.options.inDevice = "SF + 1818";*/
-  /*s.options.inDevice = "AudioBox 1818 VSL ";*/
-  /*s.options.inDevice = "Soundflower (64ch)";*/
-
   s.options.memSize = 262144; // 256 Mb
-  //s.options.outDevice = "Soundflower (64ch)";
-  s.options.sampleRate = 48000;
+  s.options.inDevice = "JackRouter";
+  s.options.outDevice = "JackRouter";
   s.options.numOutputBusChannels = 16;
   s.options.blockSize = 8;
   s.boot();
@@ -44,11 +39,14 @@
   Instr.loadAll();
 
   s.doWhenBooted({
-    var soundsOfSubConsciousSeas, bufsToLoad;
+    var soundsOfSubConsciousSeas, bufsToLoad, bufManager;
 
     soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
-
-    soundsOfSubConsciousSeas.init();
+    bufManager = BufferManager.new();
+    
+    soundsOfSubConsciousSeas.init((
+      bufManager: bufManager
+    ));
 
     bufsToLoad = [
       ["58411__sinatra314__shorewaves1004.wav", \splashingWaterBuf],
@@ -70,16 +68,22 @@
       ["shanty_03.aif", \seaShanty03],
       ["long_shanty_02.aif", \seaShanty04]
     ];
+
+    bufManager.init((
+      rootDir: projSfx,
+      doneLoadingCallback: {
+        "done loading!".postln();
+
+        soundsOfSubConsciousSeas.prepare_soundscape();
+
+        {
+          2.0.wait();
+          soundsOfSubConsciousSeas.start_soundscape();
+        }.fork();
+      }
+    ));
+    bufManager.load_bufs(bufsToLoad);
     
-    bufsToLoad.do({
-      arg bufData;
-
-      var bufFileName = bufData[0],
-        bufKey = bufData[1];
-
-      soundsOfSubConsciousSeas.load_buf(projSfx +/+ bufFileName, bufKey);
-
-    });
   });
 
 }.value();)

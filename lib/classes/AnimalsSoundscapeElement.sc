@@ -82,7 +82,7 @@ AnimalsSoundscapeElement : SoundscapeElement {
     });
 
     ^Patch("cs.sfx.PlayBuf", (
-      buf: this.soundscape.bufs[bufKey],
+      buf: this.bufManager.bufs[bufKey],
       gate: KrNumberEditor.new(0, \gate.asSpec()),
       startTime: startTime,
       attackTime: this.transitionTime,

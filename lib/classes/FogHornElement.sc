@@ -46,7 +46,7 @@ FogHornElement : SoundscapeElement {
     super.create_next_patch();
     
     bufKey = this.bufKeys.choose();
-    buf = this.soundscape.bufs[bufKey];
+    buf = this.bufManager.bufs[bufKey];
 
     ("preparing fog horn" ++ bufKey).postln();
 

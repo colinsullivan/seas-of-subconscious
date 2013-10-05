@@ -74,7 +74,7 @@ DreamsSoundscapeElement : SoundscapeElement {
     this.onTimeMax = this.onTimeMin;
 
     ^Patch("cs.sfx.PlayBuf", (
-      buf: this.soundscape.bufs[bufKey],
+      buf: this.bufManager.bufs[bufKey],
       gate: KrNumberEditor.new(0, \gate.asSpec()),
       startTime: bufSection[0],
       attackTime: this.transitionTime,

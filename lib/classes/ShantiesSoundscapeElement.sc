@@ -70,7 +70,7 @@ ShantiesSoundscapeElement : SoundscapeElement {
     super.create_next_patch();
 
     bufKey = this.bufNames.choose();
-    buf = this.soundscape.bufs[bufKey];
+    buf = this.bufManager.bufs[bufKey];
     /*bufSection = this.bufSections[bufKey].choose();*/
 
     ("preparing shanty: " ++ bufKey /*++ " - " ++ bufSection*/).postln();

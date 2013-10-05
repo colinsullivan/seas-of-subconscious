@@ -40,7 +40,7 @@ CreepyBellElement : SoundscapeElement {
 
     "prepare next bell".postln();
 
-    buf = this.soundscape.bufs[\shipsBellBuf];
+    buf = this.bufManager.bufs[\shipsBellBuf];
     playbackRate = [2.0, -2.0, 1.0, -1.0, 0.25].choose();
 
     if (playbackRate < 0, {

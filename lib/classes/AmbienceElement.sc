@@ -65,7 +65,7 @@ AmbienceElement : SoundscapeElement {
     super.prepare_to_play();
     
     this.waterPatch = Patch("cs.sfx.LoopBuf", (
-      buf: this.soundscape.bufs[\splashingWaterBuf],
+      buf: this.bufManager.bufs[\splashingWaterBuf],
       gate: KrNumberEditor.new(1, \gate.asSpec())
     ));
     this.dronePatch = Patch("SeasOfSubconsciousDrone", (

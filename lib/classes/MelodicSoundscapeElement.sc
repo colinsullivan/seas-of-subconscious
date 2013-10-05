@@ -48,7 +48,7 @@ MelodicSoundscapeElement : SoundscapeElement {
     super.create_next_patch();
 
     bufKey = this.soundscapeBufKeys.choose();
-    buf = this.soundscape.bufs[bufKey];
+    buf = this.bufManager.bufs[bufKey];
 
     this.onTimeMin = buf.duration;
     this.onTimeMax = buf.duration;
