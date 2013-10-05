@@ -1,5 +1,6 @@
 /**
- *  @file       SoundsOfSubconsciousSeas.sc
+ *  @file       EntrySoundscape.sc
+ *
  *
  *  @author     Colin Sullivan <colin [at] colin-sullivan.net>
  *
@@ -8,10 +9,11 @@
  **/
 
 /**
- *  @class  Eerie seas of the subconscious soundscape.
+ *  @class  A different soundscape as people are entering the seas of the
+ *  subconscious.  Heard from outside, less eerie, but still mysterious.
  **/
-SoundsOfSubconsciousSeas : Soundscape {
-
+EntrySoundscape : Soundscape {
+  
   var <>reverbReturn;
 
   init_channels {
@@ -44,11 +46,11 @@ SoundsOfSubconsciousSeas : Soundscape {
     super.init_elements();
 
     this.elements = (
-      ambience: AmbienceElement.new(),
+      //ambience: AmbienceElement.new(),
       animals: AnimalsSoundscapeElement.new(),
       creaks: CreakSoundscapeElement.new(),
-      creepyBells: CreepyBellElement.new(),
-      dreams: DreamsSoundscapeElement.new(),
+      //creepyBells: CreepyBellElement.new(),
+      //dreams: DreamsSoundscapeElement.new(),
       melodic: MelodicSoundscapeElement.new(),
       fogHorn: FogHornElement.new(),
       shanties: ShantiesSoundscapeElement.new()

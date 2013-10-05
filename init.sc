@@ -39,14 +39,20 @@
   Instr.loadAll();
 
   s.doWhenBooted({
-    var soundsOfSubConsciousSeas, bufsToLoad, bufManager;
+    var soundsOfSubConsciousSeas, entrySoundscape, bufsToLoad, bufManager;
 
     soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
+    entrySoundscape = EntrySoundscape.new();
     bufManager = BufferManager.new();
     
     soundsOfSubConsciousSeas.init((
       bufManager: bufManager,
       outbus: 8
+    ));
+
+    entrySoundscape.init((
+      bufManager: bufManager,
+      outbus: 10
     ));
 
     bufsToLoad = [
@@ -76,6 +82,7 @@
         "done loading!".postln();
 
         soundsOfSubConsciousSeas.start_soundscape();
+        entrySoundscape.start_soundscape();
       }
     ));
     bufManager.load_bufs(bufsToLoad);
