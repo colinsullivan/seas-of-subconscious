@@ -45,7 +45,8 @@
     bufManager = BufferManager.new();
     
     soundsOfSubConsciousSeas.init((
-      bufManager: bufManager
+      bufManager: bufManager,
+      outbus: 8
     ));
 
     bufsToLoad = [
@@ -74,12 +75,7 @@
       doneLoadingCallback: {
         "done loading!".postln();
 
-        soundsOfSubConsciousSeas.prepare_soundscape();
-
-        {
-          2.0.wait();
-          soundsOfSubConsciousSeas.start_soundscape();
-        }.fork();
+        soundsOfSubConsciousSeas.start_soundscape();
       }
     ));
     bufManager.load_bufs(bufsToLoad);

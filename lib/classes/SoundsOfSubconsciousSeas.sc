@@ -11,28 +11,13 @@
  *  @class  Entry-point into soundscape.  Creates all elements and plays them.
  *  TODO: generalize this into a `Soundscape` class.
  **/
-SoundsOfSubconsciousSeas : Object {
+SoundsOfSubconsciousSeas : Soundscape {
 
-  var <>masterChannel,
-    <>reverbReturn,
-    <>channels,
-    <>elements,
-    <>bufManager;
+  var <>reverbReturn;
 
-  init {
-    arg params;
-    var create_channel_to_mixer, test;
+  init_channels {
+    super.init_channels();
 
-    this.bufManager = params[\bufManager];
-
-    this.masterChannel = MixerChannel.new(
-      \masterChannel,
-      Server.default,
-      2,
-      2,
-      2.4,
-      outbus: 8
-    );
     this.masterChannel.playfx(FxPatch("cs.fx.Notcher.notcher", (
       notchFreqs: [24000.0 ],
       notchrQs:   [0.1   ],
@@ -52,6 +37,12 @@ SoundsOfSubconsciousSeas : Object {
       numChan: 2
     )));
 
+
+  }
+
+  init_elements {
+    super.init_elements();
+
     this.elements = (
       ambience: AmbienceElement.new(),
       animals: AnimalsSoundscapeElement.new(),
@@ -62,38 +53,7 @@ SoundsOfSubconsciousSeas : Object {
       fogHorn: FogHornElement.new(),
       shanties: ShantiesSoundscapeElement.new()
     );
-
-    // initialize all elements
-    this.elements.keysValuesDo({
-      arg key, element;
-
-      element.init((
-        soundscape: this,
-        bufManager: this.bufManager,
-        key: key
-      ));
-    });
-
-  }
-
-  prepare_soundscape {
-    this.elements.do({
-      arg element;
-
-      element.prepare_to_play();
-    });
-  }
-
-  start_soundscape {
-
-    // play all elements
-    this.elements.do({
-      arg element;
-
-      if (element != 0, {
-        element.play();    
-      });
-    });
   
   }
+
 }
