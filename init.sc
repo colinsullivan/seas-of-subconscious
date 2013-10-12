@@ -42,7 +42,7 @@
     var soundsOfSubConsciousSeas, entrySoundscape, bufsToLoad, bufManager;
 
     soundsOfSubConsciousSeas = SoundsOfSubconsciousSeas.new();
-    entrySoundscape = EntrySoundscape.new();
+    //entrySoundscape = EntrySoundscape.new();
     bufManager = BufferManager.new();
     
     soundsOfSubConsciousSeas.init((
@@ -50,10 +50,10 @@
       outbus: 8
     ));
 
-    entrySoundscape.init((
+    /*entrySoundscape.init((
       bufManager: bufManager,
       outbus: 10
-    ));
+    ));*/
 
     bufsToLoad = [
       ["58411__sinatra314__shorewaves1004.wav", \splashingWaterBuf],
@@ -73,7 +73,12 @@
       ["shanty_01.aif", \seaShanty01],
       ["long_shanty_01.aif", \seaShanty02],
       ["shanty_03.aif", \seaShanty03],
-      ["long_shanty_02.aif", \seaShanty04]
+      ["long_shanty_02.aif", \seaShanty04],
+      ["notfree-samples/01 Blow the Man Down - The Men of the Robert Shaw Chorale.wav", \blowTheManDown],
+      ["notfree-samples/04 Whup! Jamboree - The Men of the Robert Shaw Chorale.wav", \jamboree],
+      ["notfree-samples/15 The Drummer and the Cook - The Men of the Robert Shaw Chorale.wav", \cook],
+      ["notfree-samples/12 Talcahuano Girls.wav", \talcahuano],
+      ["notfree-samples/04 10000 Miles Away.wav", \milesAway]
     ];
 
     bufManager.init((
@@ -82,7 +87,7 @@
         "done loading!".postln();
 
         soundsOfSubConsciousSeas.start_soundscape();
-        entrySoundscape.start_soundscape();
+        //entrySoundscape.start_soundscape();
       }
     ));
     bufManager.load_bufs(bufsToLoad);
