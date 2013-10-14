@@ -11,7 +11,7 @@
  *  @class  Melodic bass samples recorded from my bass guitar.
  **/
 MelodicSoundscapeElement : SoundscapeElement {
-  var <>soundscapeBufKeys;
+  var <>soundscapeBufKeys, <>instrKeys, <>eventKeys;
 
   init {
     arg args;
@@ -27,40 +27,64 @@ MelodicSoundscapeElement : SoundscapeElement {
     this.outChannel.level = -26.0.dbamp();
 
     this.soundscapeBufKeys = [
-      \avadhuta01Buf,
+      /*\avadhuta01Buf,
       \avadhuta02Buf,
       \descendingDissonantBuf,
-      \triadsBuf
+      \triadsBuf*/
     ];
+
+    this.instrKeys = [
+      \bassSlide
+    ];
+
+    this.eventKeys = this.soundscapeBufKeys ++ this.instrKeys;
 
     this.transitionTime = 0.1;
     
-    this.offTimeMin = 35.0;
-    this.offTimeMax = 80.0;
-    /*this.offTimeMin = 5.0;*/
-    /*this.offTimeMax = 10.0;*/
+    /*this.offTimeMin = 35.0;
+    this.offTimeMax = 80.0;*/
+    this.offTimeMin = 5.0;
+    this.offTimeMax = 10.0;
   }
 
   create_next_patch {
     var bufKey,
-      buf;
+      buf,
+      eventKey;
 
     super.create_next_patch();
 
-    bufKey = this.soundscapeBufKeys.choose();
-    buf = this.bufManager.bufs[bufKey];
+    eventKey = this.eventKeys.choose();
 
-    this.onTimeMin = buf.duration;
-    this.onTimeMax = buf.duration;
+    if (this.soundscapeBufKeys.includes(eventKey), {
+      buf = this.bufManager.bufs[eventKey];
 
-    ("preparing melody: " ++ bufKey).postln();
+      this.onTimeMin = buf.duration;
+      this.onTimeMax = buf.duration;
 
-    ^Patch("BassAutoGarble", (
-      buf: buf,
-      gate: KrNumberEditor.new(0, \gate.asSpec()),
-      attackTime: this.transitionTime,
-      releaseTime: this.transitionTime,
-      convertToStereo: 1
-    ));
+      ("preparing melody: " ++ bufKey).postln();
+
+      ^Patch("BassAutoGarble", (
+        buf: buf,
+        gate: KrNumberEditor.new(0, \gate.asSpec()),
+        attackTime: this.transitionTime,
+        releaseTime: this.transitionTime,
+        convertToStereo: 1
+      ));
+      
+    }, {
+      if (eventKey == \bassSlide, {
+        ("preparing bass slide").postln();
+
+        this.onTimeMin = 4.0;
+        this.onTimeMax = this.onTimeMin;
+
+        ^Patch("BassSlide", (
+          gate: KrNumberEditor.new(0, \gate.asSpec()),
+          duration: this.onTimeMin
+        ));
+
+      });
+    });
   }
 }
