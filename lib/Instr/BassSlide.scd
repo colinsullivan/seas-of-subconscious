@@ -2,27 +2,32 @@ Instr("BassSlide", {
 
   arg duration = 2.0,
     gate = 0,
-    freq = 220;
+    freq = 110,
+    amp = 0.9;
 
   var out,
     pbEnvShape,
     pbEnv;
 
   pbEnvShape = Env.perc(
-    attackTime: 0.01,
+    attackTime: 0.00,
     releaseTime: duration,
     curve: 3
   );
-  pbEnv = EnvGen.kr(pbEnvShape, gate, doneAction: 2).range(0.5, 1.0);
+  pbEnv = EnvGen.kr(pbEnvShape, gate).range(0.25, 1.0);
 
   out = Instr.ar("cs.fm.WideBass", (
     freq: freq,
-    pb: pbEnv
+    pb: pbEnv,
+    gate: gate,
+    toneModulatorGainMultiplier: 0.3,
+    amp: amp
   ));
 
   out;
 }, [
-  ObjectSpec(2.0),
+  \beats,
   \gate,
-  \freq
+  \freq,
+  \amp
 ]);
